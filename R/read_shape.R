@@ -11,7 +11,9 @@ library(rmapshaper)
 
 
 # 1. read raw GIS datasets ---- 
-# read raw WHO geoJSON files (3 files are required!)
+# read raw WHO geoJSON files (3 files are required but included in gitignore as the file size is too large. 
+# Please download from https://gis-who.hub.arcgis.com/ and save the files in ./shape)
+
 ## Global ADM0
 shp0 <- st_read(here::here("./shape/Detailed_Boundary_ADM0.geojson"))
 ## Boundary Borders
@@ -52,7 +54,7 @@ disb_nsu <- disb |>
 
 
 # 3. save geo datasets ---- 
-# saving rda
+# saving as rda in ./data
 save(world, file = here::here(paste0("./data/world", ".rda")))
 
 save(disa_ac, file = here::here(paste0("./data/disa_ac", ".rda")))
