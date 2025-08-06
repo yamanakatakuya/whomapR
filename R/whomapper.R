@@ -38,6 +38,7 @@
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     moll = FALSE,
+                    recentre = 12,
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
                     line_col = 'black',
@@ -68,8 +69,20 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   data <- world |>
   dplyr::left_join(df, by = c("iso3"))
 
+  data <- sf::st_wrap_dateline(data, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
+  disa_ac <- sf::st_wrap_dateline(disa_ac, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
+  disa_lake <- sf::st_wrap_dateline(disa_lake, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
+  disa_nlake_nac <- sf::st_wrap_dateline(disa_nlake_nac, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
+  disb_su <- sf::st_wrap_dateline(disb_su, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
+  disb_ar <- sf::st_wrap_dateline(disb_ar, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
+  disb_nsu <- sf::st_wrap_dateline(disb_nsu, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
+  
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection
-  crs_plot <- if (moll) "+proj=moll +lon_0=20 +datum=WGS84 +units=m +no_defs" else sf::st_crs(data) # option to choose Plate Carrée (Equirectangular projection) or Mollweide projection
+  crs_plot <- if (moll) {
+    paste0("+proj=moll +lon_0=", recentre, " +datum=WGS84 +units=m +no_defs")
+  } else {
+    paste0("+proj=eqc +lon_0=", recentre, " +datum=WGS84 +units=m +no_defs")
+  } # option to choose Plate Carrée (Equirectangular projection) or Mollweide projection
  
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection 
   # Ensure var is a factor with explicit NA
