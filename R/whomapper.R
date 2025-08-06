@@ -97,9 +97,12 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   disa_ac_trans   <- sf::st_transform(disa_ac, crs_plot)
   disa_lake_trans   <- sf::st_transform(disa_lake, crs_plot)
   disa_nlake_nac_trans   <- sf::st_transform(disa_nlake_nac, crs_plot)
-  disb_dashed_trans   <- sf::st_transform(disb_dashed, crs_plot)
+  disb_dashed_black_trans   <- sf::st_transform(disb_dashed_black, crs_plot)
+  disb_dashed_white_trans   <- sf::st_transform(disb_dashed_white, crs_plot)
+  disb_dashed_grey_trans   <- sf::st_transform(disb_dashed_grey, crs_plot)
   disb_solid_trans   <- sf::st_transform(disb_solid, crs_plot)
-  disb_dotted_trans   <- sf::st_transform(disb_dotted, crs_plot)
+  disb_dotted_grey_trans   <- sf::st_transform(disb_dotted_grey, crs_plot)
+  disb_dotted_black_trans   <- sf::st_transform(disb_dotted_black, crs_plot)
 
   # 2. Create one dummy sf object for both legend entries ---
   dummy_legend <- sf::st_sf(
@@ -175,18 +178,26 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   # fill white for lakes
     ggplot2::geom_sf(data=disa_lake_trans,  col=line_col, fill=water_col,
           linewidth = line_width) +
-  # grey dashed lines for Sudan/South Sudan etc boundaries
-    ggplot2::geom_sf(data=disb_dashed_trans,  col="grey50", fill="grey50",
+  # black dashed lines for Sudan/South Sudan, Kenya/Sudan
+    ggplot2::geom_sf(data=disb_dashed_black_trans,  col=line_col, fill="grey50",
           linewidth = line_width,
           linetype = "dashed") +
+  # white dashed lines where there is already black solid lines from base world map: Korean, Palestine, Egypt/Sudan, Kosovo
+    ggplot2::geom_sf(data=disb_dashed_white_trans,  col="white", fill="grey50",
+                     linewidth = line_width,
+                     linetype = "dashed") +
   # black solid line for Arunachal Pradesh etc
     ggplot2::geom_sf(data=disb_solid_trans,  col=line_col, fill="grey50",
           linewidth = line_width,
           linetype = "solid") +
-  # grey dotted lines for other boundaries 
-    ggplot2::geom_sf(data=disb_dotted_trans,  col="grey50", fill="grey50",
+  # grey dotted lines for J&K control line 
+    ggplot2::geom_sf(data=disb_dotted_grey_trans,  col="grey50", fill="grey50",
           linewidth = line_width,
           linetype = "dotted") +
+  # black dotted lines for Sudan South Sudan
+    ggplot2::geom_sf(data=disb_dotted_black_trans,  col=line_col, fill="grey50",
+                     linewidth = line_width,
+                     linetype = "dotted") +
   # adjusting background/axis settings
     ggplot2::theme(
     panel.background = element_rect(fill = water_col, color = NA),
