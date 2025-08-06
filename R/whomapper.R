@@ -23,7 +23,7 @@
 #' @param disclaimer A boolean, inserts a standard WHO disclaimer.
 #' @param legend_pos A vector of two numbers, positions the legend.
 #' @return A ggplot2 plot.
-#' @format An `sf` object with one row per country and at least a column `iso3`.
+#' @param df A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'var' (categorical variable to map).
 #' @source Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 #' @author Takuya Yamanaka, adapted from scripts of whomap developed by Philippe Glaziou.
 #' @import ggplot2
@@ -33,7 +33,7 @@
 #' @import dplyr
 #' @examples
 #' whomapper(data.frame(iso3 = NA, var = NA))
-#' @export whomapper()
+#' @export 
 
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     colours = NULL,

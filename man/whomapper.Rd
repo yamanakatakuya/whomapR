@@ -5,9 +5,6 @@
 \title{Choropleth world maps 2025 version
 \code{whomapper()} prints a choropleth world map based on the latest WHO geoJSON files
 It requires ggplot2, ggpattern, sf and here}
-\format{
-An \code{sf} object with one row per country and at least a column \code{iso3}.
-}
 \source{
 Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 }
@@ -30,9 +27,7 @@ whomapper(
 )
 }
 \arguments{
-\item{df}{a dataframe. It must contain a variable "iso" (factor)
-with standard WHO ISO3 country codes.The categorical variable to be
-mapped should be named "var" (see examples).}
+\item{df}{A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'var' (categorical variable to map).}
 
 \item{colours}{A vector of colour values for each category in "var", excepting missing values.}
 
