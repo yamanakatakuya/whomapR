@@ -38,6 +38,7 @@
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     moll = FALSE,
+                    projection = "moll",
                     offset = 10.8,
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
@@ -78,13 +79,22 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   data$var[data$iso3 == "SJM"] <- norway_value
   data$var[data$iso3 == "GUF"] <- france_value
   
-  # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection
-  crs_plot <- if (moll) {
-    paste0("+proj=moll +lon_0=", offset, " +datum=WGS84 +units=m +no_defs")
-  } else {
-    paste0("+proj=eqc +lon_0=", offset, " +datum=WGS84 +units=m +no_defs")
-  } # option to choose Plate Carrée (Equirectangular projection) or Mollweide projection
- 
+  # option to switch map projection
+  # Define valid projections
+  valid_projs <- c(
+    "eqc", "moll", "robin", "wintri", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6",
+    "hammer", "goode", "sinu", "aitoff", "bonne"
+  )
+  
+  # Validate and set projection
+  if (!projection %in% valid_projs) {
+    warning(paste0("Invalid projection '", projection, "' specified. Defaulting to 'eqc' (Plate Carrée)."))
+    projection <- "eqc"
+  }
+  
+  # Construct CRS string
+  crs_plot <- paste0("+proj=", projection, " +lon_0=", offset, " +datum=WGS84 +units=m +no_defs")
+  
   # 'break' any polygons that cross offset point
   data <- data |>
     sf::st_break_antimeridian(lon_0 = offset)
