@@ -198,11 +198,11 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   ggplot2::labs(title = map_title) +
   # adjusting legend settings
     ggplot2::theme(
-      legend.key.size = unit(0.5, "cm"),
+      legend.key.size = unit(0.4, "cm"),
       legend.key = element_rect(fill = "white", color = "white"),
-      legend.text = element_text(size = 7),
+      legend.text = element_text(size = 6),
       legend.justification = c(0.5, 1),
-      legend.title = element_text(size = 7),
+      legend.title = element_text(size = 6),
       legend.background = element_rect(fill = water_col, color = NA),
       legend.position = legend_pos
   )
