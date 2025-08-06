@@ -64,6 +64,15 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   if (!is.factor(df$var))
     df$var <- as.factor(df$var)
 
+  # call GIS data in ./data
+  world <- get("world", envir = asNamespace("whomapper"))
+  disa_ac <- get("disa_ac", envir = asNamespace("whomapper"))
+  disa_nlake_nac <- get("disa_nlake_nac", envir = asNamespace("whomapper"))
+  disa_lake <- get("disa_lake", envir = asNamespace("whomapper"))
+  disb_ar <- get("disb_ar", envir = asNamespace("whomapper"))
+  disb_nsu <- get("disb_nsu", envir = asNamespace("whomapper"))
+  disb_su <- get("disb_su", envir = asNamespace("whomapper"))
+  
   # leftjoin a dataset with the base world map
   data <- world |>
   dplyr::left_join(df, by = c("iso3"))
