@@ -153,11 +153,11 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
     ggpattern::geom_sf_pattern(data = disa_ac_trans,
                   fill = china_color,
                   col = "grey80",           # outline color
-                  linewidth = 0.3,          # outline thickness
+                  linewidth = line_width,          # outline thickness
                   pattern = "stripe",
                   pattern_fill = "grey80",  # stripe color
                   pattern_colour = "grey80",
-                  pattern_size = 0.037,     # stripe thickness
+                  pattern_size = 0.042,     # stripe thickness
                   pattern_angle = 45,
                   pattern_density = 0.3,
                   pattern_spacing = 0.002) +
