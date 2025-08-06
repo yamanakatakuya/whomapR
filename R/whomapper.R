@@ -85,7 +85,10 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
     paste0("+proj=eqc +lon_0=", offset, " +datum=WGS84 +units=m +no_defs")
   } # option to choose Plate Carrée (Equirectangular projection) or Mollweide projection
  
-  # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection 
+  # 'break' any polygons that cross offset point
+  data <- data |>
+    sf::st_break_antimeridian(lon_0 = offset)
+ 
   # Ensure var is a factor with explicit NA
   data$var <- forcats::fct_na_value_to_level(data$var, level = na_label)
 
