@@ -38,7 +38,6 @@
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     moll = FALSE,
-                    center_long = 150,
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
                     line_col = 'black',
@@ -70,11 +69,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   dplyr::left_join(df, by = c("iso3"))
 
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection
-  crs_plot <- if (moll) {
-    paste0("+proj=moll +lon_0=", center_long, " +datum=WGS84")
-  } else {
-    paste0("+proj=eqc +lon_0=", center_long, " +datum=WGS84 +units=m")
-  } # option to choose Plate Carrée (Equirectangular projection) or Mollweide projection
+  crs_plot <- if (moll) "+proj=moll +lon_0=20 +datum=WGS84 +units=m +no_defs" else sf::st_crs(data) # option to choose Plate Carrée (Equirectangular projection) or Mollweide projection
  
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection 
   # Ensure var is a factor with explicit NA
