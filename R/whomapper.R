@@ -69,7 +69,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   data <- world |>
   dplyr::left_join(df, by = c("iso3"))
   
-  data <- sf::st_wrap_dateline(data, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=")), quiet = TRUE)
+  data <- sf::st_wrap_dateline(data, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
   disa_ac <- sf::st_wrap_dateline(disa_ac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
   disa_lake <- sf::st_wrap_dateline(disa_lake, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
   disa_nlake_nac <- sf::st_wrap_dateline(disa_nlake_nac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
