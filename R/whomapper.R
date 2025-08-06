@@ -32,9 +32,8 @@
 #' @import sf
 #' @import dplyr
 #' @examples
-#' @docType data
-#' # A simple world map
-#' whomapper()
+#' whomapper(data.frame(iso3 = NA, var = NA))
+#' @export whomapper()
 
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
