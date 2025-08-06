@@ -121,7 +121,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
     # Dummy data for legend entries
     ggplot2::geom_sf(data = dummy_legend, aes(fill = var), show.legend = TRUE) +
     # legend
-    ggplot2::scale_fill_manual(legend.title, values = col2) +
+    ggplot2::scale_fill_manual(legend_title, values = col2) +
     ggplot2::guides(
     fill = guide_legend(override.aes = list(color = NA))  # remove outline in legend
     ) 
