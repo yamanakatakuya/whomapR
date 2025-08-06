@@ -66,10 +66,30 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   if (!is.factor(df$var))
     df$var <- as.factor(df$var)
   
+  
+  
+  # St. Lawrence Island (~170°W, 63°N) Hack
+  bbox_st_lawrence <- sf::st_bbox(c(
+    xmin = -172, xmax = -167, 
+    ymin = 62.5, ymax = 64.5
+  ), crs = sf::st_crs(world))
+  
+  # Convert to polygon
+  box_polygon <- sf::st_as_sfc(bbox_st_lawrence)
+  
+  # STEP 1: Explode MULTIPOLYGON to POLYGON level
+  world <- world %>%
+    st_cast("POLYGON", warn = FALSE) %>%
+    mutate(geometry = st_make_valid(geometry)) %>%
+    filter(!st_intersects(geometry, box_polygon, sparse = FALSE)[,1]) %>%
+    group_by(iso3) %>%
+    summarise(across(everything(), ~ first(.)), do_union = TRUE) %>%
+    ungroup()
+  
   # leftjoin a dataset with the base world map
   data <- world |>
   dplyr::left_join(df, by = c("iso3"))
-
+  
   data <- sf::st_wrap_dateline(data, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
   disa_ac <- sf::st_wrap_dateline(disa_ac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
   disa_lake <- sf::st_wrap_dateline(disa_lake, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
