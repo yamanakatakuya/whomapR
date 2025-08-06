@@ -42,7 +42,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
                     line_col = 'black',
-                    line_width = 0.3,
+                    line_width = 0.2,
                     map_title = "",
                     legend_title = "",
                     water_col = 'white',
@@ -157,7 +157,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                   pattern = "stripe",
                   pattern_fill = "grey80",  # stripe color
                   pattern_colour = "grey80",
-                  pattern_size = 0.034,     # stripe thickness
+                  pattern_size = 0.037,     # stripe thickness
                   pattern_angle = 45,
                   pattern_density = 0.3,
                   pattern_spacing = 0.002) +
