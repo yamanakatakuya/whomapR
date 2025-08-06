@@ -189,7 +189,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
       legend.text = element_text(size = 7),
       legend.justification = c(0.5, 1),
       legend.title = element_text(size = 7),
-      legend.background = element_rect(fill = "white", color = NA),
+      legend.background = element_rect(fill = water_col, color = NA),
       legend.position = legend_pos
   )
 
