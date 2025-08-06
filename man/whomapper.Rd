@@ -13,7 +13,7 @@ whomapper(
   df = data.frame(iso3 = NA, var = NA),
   colours = NULL,
   moll = FALSE,
-  offset = 10,
+  offset = 10.8,
   low_col = "#BDD7E7",
   high_col = "#08519C",
   line_col = "black",
@@ -24,7 +24,7 @@ whomapper(
   na_label = "No data",
   na_col = "white",
   disclaimer = FALSE,
-  legend_pos = c(0.2, 0.4)
+  legend_pos = c(0.17, 0.42)
 )
 }
 \arguments{
