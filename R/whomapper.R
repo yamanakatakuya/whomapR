@@ -54,9 +54,9 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
 {
   # required data
   if (is.data.frame(df) == FALSE)
-    stop("X must be a dataframe")
+    stop("df must be a dataframe")
   if (all(c("iso3", "var") %in% names(df)) == FALSE)
-    stop("X must have two variables named 'iso3' and 'var'")
+    stop("df must have two variables named 'iso3' and 'var'")
   
   df <- as.data.frame(df[!is.na(df$var) & df$var != "",])
   if (is.factor(df$var) &
