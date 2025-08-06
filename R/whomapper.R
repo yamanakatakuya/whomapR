@@ -186,6 +186,10 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
     ggplot2::geom_sf(data=disb_dashed_white_trans,  col="white", fill="grey50",
                      linewidth = line_width,
                      linetype = "dashed") +
+  # grey dashed lines for Sudan/South Sudan, Kenya/Sudan
+    ggplot2::geom_sf(data=disb_dashed_grey_trans,  col="grey50", fill="grey50",
+                     linewidth = line_width,
+                     linetype = "dashed") +
   # black solid line for Arunachal Pradesh etc
     ggplot2::geom_sf(data=disb_solid_trans,  col=line_col, fill="grey50",
           linewidth = line_width,
