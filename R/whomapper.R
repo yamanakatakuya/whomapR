@@ -129,10 +129,14 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   # Aksai Chin colour trick
   # 1. Check China's value
   china_status <- data$var[data$iso3 == "CHN"]
-  # 2. Assign names to color vector
-  names(col2) <- levels(data$var)
-  # 3. Get the color applied to China
-  china_color <- col2[as.character(china_status)]
+  
+  if (!is.na(china_status)) {
+    # 2. Assign names to color vector
+    names(col2) <- levels(data$var)
+    # 3. Get the color applied to China
+    china_color <- col2[as.character(china_status)]
+  } else {
+    china_color <- na_col}
 
   # plot AC layer and other layers
   p <- p +
@@ -168,7 +172,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
           linetype = "solid") +
   # adjusting background/axis settings
     ggplot2::theme(
-    panel.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = water_col, color = NA),
     plot.background = element_rect(fill = water_col, color = NA)
   ) +
     ggplot2::theme(axis.title.x = element_blank(),
