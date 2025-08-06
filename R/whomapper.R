@@ -42,14 +42,14 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
                     line_col = 'black',
-                    line_width = 0.2,
+                    line_width = 0.3,
                     map_title = "",
                     legend_title = "",
                     water_col = 'white',
                     na_label = 'No data',
                     na_col = 'white',
                     disclaimer = FALSE,
-                    legend_pos = c(0.2,0.40)
+                    legend_pos = c(0.2,0.42)
 )
 {
   # required data
