@@ -38,7 +38,8 @@
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     moll = FALSE,
-                    recentre = 12,
+                    recentre = 10.8,
+                    offset = 10,
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
                     line_col = 'black',
@@ -69,13 +70,13 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   data <- world |>
   dplyr::left_join(df, by = c("iso3"))
 
-  data <- sf::st_wrap_dateline(data, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
-  disa_ac <- sf::st_wrap_dateline(disa_ac, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
-  disa_lake <- sf::st_wrap_dateline(disa_lake, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
-  disa_nlake_nac <- sf::st_wrap_dateline(disa_nlake_nac, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
-  disb_su <- sf::st_wrap_dateline(disb_su, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
-  disb_ar <- sf::st_wrap_dateline(disb_ar, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
-  disb_nsu <- sf::st_wrap_dateline(disb_nsu, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"), quiet = TRUE)
+  data <- sf::st_wrap_dateline(data, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
+  disa_ac <- sf::st_wrap_dateline(disa_ac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
+  disa_lake <- sf::st_wrap_dateline(disa_lake, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
+  disa_nlake_nac <- sf::st_wrap_dateline(disa_nlake_nac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
+  disb_su <- sf::st_wrap_dateline(disb_su, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
+  disb_ar <- sf::st_wrap_dateline(disb_ar, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
+  disb_nsu <- sf::st_wrap_dateline(disb_nsu, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
   
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection
   crs_plot <- if (moll) {
@@ -86,7 +87,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
  
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection 
   # Ensure var is a factor with explicit NA
-  data$var <- forcats::fct_explicit_na(data$var, na_level = na_label)
+  data$var <- forcats::fct_na_value_to_level(data$var, level = na_label)
 
   # data transformation to switch Plate Carrée (Equirectangular projection) and Mollweide projection
   data_trans      <- sf::st_transform(data, crs_plot)
