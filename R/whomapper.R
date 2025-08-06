@@ -89,9 +89,9 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   disa_ac_trans   <- sf::st_transform(disa_ac, crs_plot)
   disa_lake_trans   <- sf::st_transform(disa_lake, crs_plot)
   disa_nlake_nac_trans   <- sf::st_transform(disa_nlake_nac, crs_plot)
-  disb_su_trans   <- sf::st_transform(disb_su, crs_plot)
-  disb_ar_trans   <- sf::st_transform(disb_ar, crs_plot)
-  disb_nsu_trans   <- sf::st_transform(disb_nsu, crs_plot)
+  disb_dashed_trans   <- sf::st_transform(disb_dashed, crs_plot)
+  disb_solid_trans   <- sf::st_transform(disb_solid, crs_plot)
+  disb_dotted_trans   <- sf::st_transform(disb_dotted, crs_plot)
 
   # 2. Create one dummy sf object for both legend entries ---
   dummy_legend <- sf::st_sf(
@@ -157,28 +157,28 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                   pattern = "stripe",
                   pattern_fill = "grey80",  # stripe color
                   pattern_colour = "grey80",
-                  pattern_size = 0.017,     # stripe thickness
+                  pattern_size = 0.034,     # stripe thickness
                   pattern_angle = 45,
                   pattern_density = 0.3,
-                  pattern_spacing = 0.001) +
+                  pattern_spacing = 0.002) +
   # fill grey for other disputed areas
     ggplot2::geom_sf(data=disa_nlake_nac_trans,  col="grey80", fill="grey80",
           linewidth = line_width) +
   # fill white for lakes
-    ggplot2::geom_sf(data=disa_lake_trans,  col="black", fill=water_col,
+    ggplot2::geom_sf(data=disa_lake_trans,  col=line_col, fill=water_col,
           linewidth = line_width) +
-  # grey dashed lines for Sudan/South Sudan  boundaries
-    ggplot2::geom_sf(data=disb_su_trans,  col="grey50", fill="grey50",
+  # grey dashed lines for Sudan/South Sudan etc boundaries
+    ggplot2::geom_sf(data=disb_dashed_trans,  col="grey50", fill="grey50",
           linewidth = line_width,
           linetype = "dashed") +
-  # black solid line for Arunachal Pradesh
-    ggplot2::geom_sf(data=disb_ar_trans,  col="black", fill="grey50",
+  # black solid line for Arunachal Pradesh etc
+    ggplot2::geom_sf(data=disb_solid_trans,  col=line_col, fill="grey50",
           linewidth = line_width,
           linetype = "solid") +
-  # grey solid lines for other boundaries (this is not 100% following LEG SOP)
-    ggplot2::geom_sf(data=disb_nsu_trans,  col="grey50", fill="grey50",
+  # grey dotted lines for other boundaries 
+    ggplot2::geom_sf(data=disb_dotted_trans,  col="grey50", fill="grey50",
           linewidth = line_width,
-          linetype = "solid") +
+          linetype = "dotted") +
   # adjusting background/axis settings
     ggplot2::theme(
     panel.background = element_rect(fill = water_col, color = NA),
