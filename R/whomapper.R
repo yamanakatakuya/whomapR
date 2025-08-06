@@ -156,7 +156,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
     ggplot2::geom_sf(data=disa_nlake_nac_trans,  col="grey80", fill="grey80",
           linewidth = line_width) +
   # fill white for lakes
-    ggplot2::geom_sf(data=disa_lake_trans,  col="black", fill="white",
+    ggplot2::geom_sf(data=disa_lake_trans,  col="black", fill=water_col,
           linewidth = line_width) +
   # grey dashed lines for Sudan/South Sudan  boundaries
     ggplot2::geom_sf(data=disb_su_trans,  col="grey50", fill="grey50",
