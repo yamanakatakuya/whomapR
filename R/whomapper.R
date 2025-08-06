@@ -157,7 +157,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                   pattern = "stripe",
                   pattern_fill = "grey80",  # stripe color
                   pattern_colour = "grey80",
-                  pattern_size = 0.042,     # stripe thickness
+                  pattern_size = 0.050,     # stripe thickness
                   pattern_angle = 45,
                   pattern_density = 0.3,
                   pattern_spacing = 0.002) +
