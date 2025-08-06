@@ -24,11 +24,16 @@
 #' @param disclaimer A boolean, inserts a standard WHO disclaimer.
 #' @param legend_pos A vector of two numbers, positions the legend.
 #' @return A ggplot2 plot.
+#' @format An `sf` object with one row per country and at least a column `iso3`.
+#' @source Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 #' @author Takuya Yamanaka, adapted from scripts of whomap developed by Philippe Glaziou.
 #' @import ggplot2
 #' @import scales
-#' @export
+#' @import ggpattern
+#' @import sf
+#' @import dplyr
 #' @examples
+#' @docType data
 #' # A simple world map
 #' whomapper()
 
@@ -61,50 +66,34 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   if (!is.factor(df$var))
     df$var <- as.factor(df$var)
 
-  # loading packages
-  library(ggpattern)
-  library(tidyverse)
-  library(ggplot2)
-  library(sf)
-  library(here)
-
-  # loading edited WHO GIS data
-  load(here::here('data/disa_ac.rda'))
-  load(here::here('data/disa_nlake_nac.rda'))
-  load(here::here('data/disa_lake.rda'))
-  load(here::here('data/disb_su.rda'))
-  load(here::here('data/disb_ar.rda'))
-  load(here::here('data/disb_nsu.rda'))
-  load(here::here('data/world.rda'))
-
   # leftjoin a dataset with the base world map
   data <- world |>
-  left_join(df, by = c("iso3"))
+  dplyr::left_join(df, by = c("iso3"))
 
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection
-  crs_plot <- if (moll) "+proj=moll" else st_crs(data) # option to choose Plate Carrée (Equirectangular projection) or Mollweide projection
+  crs_plot <- if (moll) "+proj=moll" else sf::st_crs(data) # option to choose Plate Carrée (Equirectangular projection) or Mollweide projection
  
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection 
   # Ensure var is a factor with explicit NA
   data$var <- forcats::fct_explicit_na(data$var, na_level = na_label)
 
   # data transformation to switch Plate Carrée (Equirectangular projection) and Mollweide projection
-  data_trans      <- st_transform(data, crs_plot)
-  disa_ac_trans   <- st_transform(disa_ac, crs_plot)
-  disa_lake_trans   <- st_transform(disa_lake, crs_plot)
-  disa_nlake_nac_trans   <- st_transform(disa_nlake_nac, crs_plot)
-  disb_su_trans   <- st_transform(disb_su, crs_plot)
-  disb_ar_trans   <- st_transform(disb_ar, crs_plot)
-  disb_nsu_trans   <- st_transform(disb_nsu, crs_plot)
+  data_trans      <- sf::st_transform(data, crs_plot)
+  disa_ac_trans   <- sf::st_transform(disa_ac, crs_plot)
+  disa_lake_trans   <- sf::st_transform(disa_lake, crs_plot)
+  disa_nlake_nac_trans   <- sf::st_transform(disa_nlake_nac, crs_plot)
+  disb_su_trans   <- sf::st_transform(disb_su, crs_plot)
+  disb_ar_trans   <- sf::st_transform(disb_ar, crs_plot)
+  disb_nsu_trans   <- sf::st_transform(disb_nsu, crs_plot)
 
   # 2. Create one dummy sf object for both legend entries ---
-  dummy_legend <- st_sf(
+  dummy_legend <- sf::st_sf(
   var = factor(
     c(na_label, "Not applicable"),
     levels = c(levels(data$var),  "Not applicable")
   ),
-  geometry = st_sfc(st_geometrycollection(), st_geometrycollection()),
-  crs = st_crs(data)
+  geometry = sf::st_sfc(st_geometrycollection(), st_geometrycollection()),
+  crs = sf::st_crs(data)
   )
 
   # 2. colour definition ---
@@ -129,13 +118,13 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   
   # plotting an output
   # plot the base world map
-  p <- ggplot() + 
-    geom_sf(data=data_trans,  col=line_col, aes(fill = var), linewidth = line_width) +
+  p <- ggplot2::ggplot() + 
+    ggplot2::geom_sf(data=data_trans,  col=line_col, aes(fill = var), linewidth = line_width) +
     # Dummy data for legend entries
-    geom_sf(data = dummy_legend, aes(fill = var), show.legend = TRUE) +
+    ggplot2::geom_sf(data = dummy_legend, aes(fill = var), show.legend = TRUE) +
     # legend
     ggplot2::scale_fill_manual(legend.title, values = col2) +
-    guides(
+    ggplot2::guides(
     fill = guide_legend(override.aes = list(color = NA))  # remove outline in legend
     ) 
 
@@ -150,7 +139,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   # plot AC layer and other layers
   p <- p +
   # Stripe pattern for AC fillin with China colour
-  geom_sf_pattern(data = disa_ac_trans,
+    ggpattern::geom_sf_pattern(data = disa_ac_trans,
                   fill = china_color,
                   col = "grey80",           # outline color
                   linewidth = 0.3,          # outline thickness
@@ -162,46 +151,46 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                   pattern_density = 0.3,
                   pattern_spacing = 0.001) +
   # fill grey for other disputed areas
-  geom_sf(data=disa_nlake_nac_trans,  col="grey80", fill="grey80",
+    ggplot2::geom_sf(data=disa_nlake_nac_trans,  col="grey80", fill="grey80",
           linewidth = line_width) +
   # fill white for lakes
-  geom_sf(data=disa_lake_trans,  col="black", fill="white",
+    ggplot2::geom_sf(data=disa_lake_trans,  col="black", fill="white",
           linewidth = line_width) +
   # grey dashed lines for Sudan/South Sudan  boundaries
-  geom_sf(data=disb_su_trans,  col="grey50", fill="grey50",
+    ggplot2::geom_sf(data=disb_su_trans,  col="grey50", fill="grey50",
           linewidth = line_width,
           linetype = "dashed") +
   # black solid line for Arunachal Pradesh
-  geom_sf(data=disb_ar_trans,  col="black", fill="grey50",
+    ggplot2::geom_sf(data=disb_ar_trans,  col="black", fill="grey50",
           linewidth = line_width,
           linetype = "solid") +
   # grey solid lines for other boundaries (this is not 100% following LEG SOP)
-  geom_sf(data=disb_nsu_trans,  col="grey50", fill="grey50",
+    ggplot2::geom_sf(data=disb_nsu_trans,  col="grey50", fill="grey50",
           linewidth = line_width,
           linetype = "solid") +
   # adjusting background/axis settings
-  theme(
+    ggplot2::theme(
     panel.background = element_rect(fill = "white", color = NA),
     plot.background = element_rect(fill = water_col, color = NA)
   ) +
-  theme(axis.title.x = element_blank(),
+    ggplot2::theme(axis.title.x = element_blank(),
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.line.x = element_blank()) +
-  theme(panel.grid = element_blank()) +
+    ggplot2::theme(panel.grid = element_blank()) +
   # map title
   ggplot2::labs(title = map_title) +
   # adjusting legend settings
-  theme(
-    legend.key.size = unit(0.5, "cm"),
-    legend.key = element_rect(fill = "white", color = "white"),
-    legend.text = element_text(size = 7),
-    legend.justification = c(0.5, 1),
-    legend.title = element_text(size = 7),
-    legend.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = "white", color = NA),
-    plot.background = element_rect(fill = "white", color = NA),
-    legend.position = legend_pos
+    ggplot2::theme(
+      legend.key.size = unit(0.5, "cm"),
+      legend.key = element_rect(fill = "white", color = "white"),
+      legend.text = element_text(size = 7),
+      legend.justification = c(0.5, 1),
+      legend.title = element_text(size = 7),
+      legend.background = element_rect(fill = "white", color = NA),
+      panel.background = element_rect(fill = "white", color = NA),
+      plot.background = element_rect(fill = "white", color = NA),
+      legend.position = legend_pos
   )
 
   # disclaimer option
