@@ -38,8 +38,7 @@
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     moll = FALSE,
-                    recentre = 10.8,
-                    offset = 10,
+                    recentre = 0,
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
                     line_col = 'black',
@@ -66,37 +65,17 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   if (!is.factor(df$var))
     df$var <- as.factor(df$var)
   
-  
-  
-  # St. Lawrence Island (~170°W, 63°N) Hack
-  bbox_st_lawrence <- sf::st_bbox(c(
-    xmin = -172, xmax = -167, 
-    ymin = 62.5, ymax = 64.5
-  ), crs = sf::st_crs(world))
-  
-  # Convert to polygon
-  box_polygon <- sf::st_as_sfc(bbox_st_lawrence)
-  
-  # STEP 1: Explode MULTIPOLYGON to POLYGON level
-  world <- world %>%
-    st_cast("POLYGON", warn = FALSE) %>%
-    mutate(geometry = st_make_valid(geometry)) %>%
-    filter(!st_intersects(geometry, box_polygon, sparse = FALSE)[,1]) %>%
-    group_by(iso3) %>%
-    summarise(across(everything(), ~ first(.)), do_union = TRUE) %>%
-    ungroup()
-  
   # leftjoin a dataset with the base world map
   data <- world |>
   dplyr::left_join(df, by = c("iso3"))
   
-  data <- sf::st_wrap_dateline(data, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
-  disa_ac <- sf::st_wrap_dateline(disa_ac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
-  disa_lake <- sf::st_wrap_dateline(disa_lake, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
-  disa_nlake_nac <- sf::st_wrap_dateline(disa_nlake_nac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
-  disb_su <- sf::st_wrap_dateline(disb_su, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
-  disb_ar <- sf::st_wrap_dateline(disb_ar, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
-  disb_nsu <- sf::st_wrap_dateline(disb_nsu, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=", offset)), quiet = TRUE)
+  data <- sf::st_wrap_dateline(data, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=180")), quiet = TRUE)
+  disa_ac <- sf::st_wrap_dateline(disa_ac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=180")), quiet = TRUE)
+  disa_lake <- sf::st_wrap_dateline(disa_lake, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=180")), quiet = TRUE)
+  disa_nlake_nac <- sf::st_wrap_dateline(disa_nlake_nac, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=180")), quiet = TRUE)
+  disb_su <- sf::st_wrap_dateline(disb_su, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=180")), quiet = TRUE)
+  disb_ar <- sf::st_wrap_dateline(disb_ar, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=180")), quiet = TRUE)
+  disb_nsu <- sf::st_wrap_dateline(disb_nsu, options = c("WRAPDATELINE=YES", paste0("DATELINEOFFSET=180")), quiet = TRUE)
   
   # option to switch Plate Carrée (Equirectangular projection) and Mollweide projection
   crs_plot <- if (moll) {
