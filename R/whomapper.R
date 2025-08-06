@@ -49,7 +49,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     na_label = 'No data',
                     na_col = 'white',
                     disclaimer = FALSE,
-                    legend_pos = c(0.15,0.42)
+                    legend_pos = c(0.17,0.42)
 )
 {
   # required data
