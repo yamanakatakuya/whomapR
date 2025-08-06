@@ -5,7 +5,6 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #' Choropleth world maps 2025 version
-#'
 #' `whomapper()` prints a choropleth world map based on the latest WHO geoJSON files
 #'  It requires ggplot2, ggpattern, sf and here
 #'
