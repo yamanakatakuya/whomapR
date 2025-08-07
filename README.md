@@ -63,57 +63,55 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
 df is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
 numeric variable named "size".
 
-Examples:
 
-#### Univariate
+## Examples:
+
+### Univariate
 
 brics <- data.frame(iso3=c('BRA','CHN','IND','RUS','ZAF'),
                     var=1)
 
-Oceans and lakes in white, with Equirectangular projection
+#### Oceans and lakes in white, with Equirectangular projection
 
 whomapper(brics, colour='red', legend_pos='none', water_col = 'white', projection = "eqc")
 
 <img width="3000" height="1800" alt="p1" src="https://github.com/user-attachments/assets/5f54fbb2-999e-434c-873a-2874aebfdabc" />
 
 
-Oceans and lakes in light blue, with Mollweide projection
+#### Oceans and lakes in light blue, with Mollweide projection
 
 whomapper(brics, colour='red', legend_pos='none', water_col = 'white', projection = "moll")
 
 <img width="3000" height="1800" alt="p2" src="https://github.com/user-attachments/assets/9c7d1fd3-93a7-42f5-8d4e-b001b83e9d96" />
 
+### Categorical data
+brics$var <- as.factor(1:5)
 
-brics$var <- 1:5
+#### Oceans and lakes in white, with Eckert IV projection
 
-whomap(brics, legend.title='BRICS', water.col = 'white')
+whomapper(brics, legend_title='BRICS', water_col = 'white', projection = "eck4")
 
-![image](https://user-images.githubusercontent.com/233963/120228265-13798980-c24b-11eb-9ce6-7f62ae383fa7.png)
-
-
-Recentered on the region Asia-Pacific, with the legend repositioned:
-
-whomap(brics, legend.title = 'BRICS', legend.pos = c(0.7, 0.26), recentre = 163, water.col = 'white')
-
-![image](https://user-images.githubusercontent.com/233963/119449970-98d4d980-bd33-11eb-89f3-24ca5c8be36f.png)
+<img width="3000" height="1800" alt="p3" src="https://github.com/user-attachments/assets/e29f9fe8-6e85-4304-8be1-3ac190a57cbc" />
 
 
-The above maps can be drawn using high-definition 2022 WHO shapefiles by passing a parameter "hidef = T" (default is F). The drawing in high-definition is considerably slower. The previous map in high-definition with the default colour for water bodies is shown below:
+#### Recentered on the region Asia-Pacific, with the legend repositioned, with Robinson projection
 
-whomap(brics, legend.title = 'BRICS', legend.pos = c(0.7, 0.26), recentre = 163, hidef = TRUE)
+whomapper(brics, legend_title = 'BRICS', legend_pos = c(0.7, 0.52), offset = 150, projection = "robin")
 
-![image](https://user-images.githubusercontent.com/233963/173190001-bcd107c7-17cc-483b-8419-968ccd06ec4c.png)
+<img width="3000" height="1800" alt="p4" src="https://github.com/user-attachments/assets/d17be31a-0a5d-4fe1-8c5e-596e0e5718ab" />
 
 
+### Bubble map, with Hammer projection
+brics$size <-  c(1e4, 1e5, 3e5, 5e5, 1e6)
 
-### Bivariate
+bubblemapper(brics,legend_title = "Size of value",
+             bubble_col = "purple",
+             scale_breaks = c(1e4, 2.5e5, 5e5, 1e6),
+             scale_limits = c(1e4, 1e6),
+             scale_labels = c("10 000","250 000","500 000","1 000 000"),
+             legend_pos = c(0.17,0.54)) 
 
-World map also showing a secondary country marker denoting a second variable
-
-whomap(brics, legend.title='BRICS', legend.pos=c(0.14, 0.34)) +
-   add_marker('BRA', lab='Subnational\ndata')
-
-![image](https://user-images.githubusercontent.com/233963/120228390-44f25500-c24b-11eb-848c-1673771848a2.png)
+<img width="3000" height="1800" alt="p5" src="https://github.com/user-attachments/assets/a28e2629-b99c-40a8-b5e1-dc7e548b9c83" />
 
 
 
