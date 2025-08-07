@@ -109,7 +109,7 @@ bubblemapper(brics,legend_title = "Size of value",
              scale_breaks = c(1e4, 2.5e5, 5e5, 1e6),
              scale_limits = c(1e4, 1e6),
              scale_labels = c("10 000","250 000","500 000","1 000 000"),
-             legend_pos = c(0.17,0.54), projection = "hammer) 
+             legend_pos = c(0.17,0.54), projection = "hammer") 
 
 
 <img width="3000" height="1800" alt="p5" src="https://github.com/user-attachments/assets/148f0f21-6efb-45d9-b5fa-d8b06fa40440" />
