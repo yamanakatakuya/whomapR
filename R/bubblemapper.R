@@ -110,16 +110,18 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   
   # plotting an output
   # plot the base world map
-  
   bubble_points <- data |>
     filter(!is.na(size), !is.na(CENTER_LON), !is.na(CENTER_LAT)) |>
     sf::st_as_sf(coords = c("CENTER_LON", "CENTER_LAT"), crs = 4326) |>
-    sf::st_transform(crs_plot)
+    sf::st_transform(crs_plot) |>
+    sf::st_drop_geometry() 
   
   p <- ggplot2::ggplot() + 
     ggplot2::geom_sf(data=data_trans,  col=line_col, fill = "white", linewidth = line_width) +
     ggplot2::geom_point(data = bubble_points |> filter(!is.na(size)),
                         aes(
+                            x = CENTER_LON,
+                            y = CENTER_LAT,
                             size = size
                           ),
                           shape = 21,
