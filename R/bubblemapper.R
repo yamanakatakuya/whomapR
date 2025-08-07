@@ -120,8 +120,6 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
     ggplot2::geom_sf(data=data_trans,  col=line_col, fill = "white", linewidth = line_width) +
     ggplot2::geom_point(data = bubble_points |> filter(!is.na(size)),
                         aes(
-                            x = CENTER_LON,
-                            y = CENTER_LAT,
                             size = size
                           ),
                           shape = 21,
