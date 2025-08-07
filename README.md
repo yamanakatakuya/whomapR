@@ -65,7 +65,7 @@ numeric variable named "size".
 
 ### map_builder
 
-This is a script that has common codes i.e. map data transformation, WHO disclaimer, and common map layers and theme settings.
+This is a script that has common codes i.e. map data transformation, WHO disclaimer, and common map layers and theme settings, used both by whomapper.R and bubblemapper.R
 
 
 ## Examples:
