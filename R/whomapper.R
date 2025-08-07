@@ -36,7 +36,7 @@
 #' @export 
 
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
-                    colour = NULL,
+                    colours = NULL,
                     projection = "moll",
                     offset = 10.8,
                     low_col = '#BDD7E7',
