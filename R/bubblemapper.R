@@ -84,9 +84,6 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   data <- data |>
     sf::st_break_antimeridian(lon_0 = offset)
   
-  # Ensure var is a factor with explicit NA
-  data$var <- forcats::fct_na_value_to_level(data$var, level = na_label)
-  
   # data transformation to switch Plate Carrée (Equirectangular projection) and Mollweide projection
   data_trans      <- sf::st_transform(data, crs_plot)
   disa_ac_trans   <- sf::st_transform(disa_ac, crs_plot)
