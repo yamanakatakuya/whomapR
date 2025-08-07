@@ -36,7 +36,7 @@
 #' @export 
 
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
-                    colours = NULL,
+                    colour = NULL,
                     projection = "moll",
                     offset = 10.8,
                     low_col = '#BDD7E7',
@@ -126,11 +126,11 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   )
 
   # 2. colour definition ---
-  if (is.null(colours)) {
+  if (is.null(colour)) {
   xc <- seq(0, 1, length = length(levels(data[["var"]])))
   col <- scales::seq_gradient_pal(low_col, high_col)(xc)
   } else {
-  col <- colours
+  col <- colour
   }
 
   col2 <- c(col, na_col, 'grey60')
