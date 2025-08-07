@@ -13,6 +13,7 @@ whomapper(
   df = data.frame(iso3 = NA, var = NA),
   colours = NULL,
   moll = FALSE,
+  projection = "moll",
   offset = 10.8,
   low_col = "#BDD7E7",
   high_col = "#08519C",

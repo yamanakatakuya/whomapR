@@ -108,7 +108,9 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   disa_lake_trans   <- sf::st_transform(disa_lake, crs_plot)
   disa_nlake_nac_trans   <- sf::st_transform(disa_nlake_nac, crs_plot)
   disb_dashed_black_trans   <- sf::st_transform(disb_dashed_black, crs_plot)
-  disb_dashed_white_trans   <- sf::st_transform(disb_dashed_white, crs_plot)
+  disb_dashed_kor_trans   <- sf::st_transform(disb_dashed_kor, crs_plot)
+  disb_dashed_sdn_trans   <- sf::st_transform(disb_dashed_sdn, crs_plot)
+  disb_dashed_pse_trans   <- sf::st_transform(disb_dashed_pse, crs_plot)
   disb_dashed_grey_trans   <- sf::st_transform(disb_dashed_grey, crs_plot)
   disb_solid_trans   <- sf::st_transform(disb_solid, crs_plot)
   disb_dotted_grey_trans   <- sf::st_transform(disb_dotted_grey, crs_plot)
@@ -167,7 +169,44 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
     china_color <- col2[as.character(china_status)]
   } else {
     china_color <- na_col}
-
+  
+  # Korean DMZ colour trick
+  # 1. Check Korea's value
+  korea_status <- data$var[data$iso3 == "KOR"]
+  
+  if (!is.na(korea_status)) {
+    # 2. Assign names to color vector
+    names(col2) <- levels(data$var)
+    # 3. Get the color applied to Korea
+    korea_color <- col2[as.character(korea_status)]
+  } else {
+    korea_color <- na_col}
+  
+  # Sudan vs Egypt border colour trick
+  # 1. Check Sudan's value
+  sudan_status <- data$var[data$iso3 == "SDN"]
+  
+  if (!is.na(sudan_status)) {
+    # 2. Assign names to color vector
+    names(col2) <- levels(data$var)
+    # 3. Get the color applied to Sudan
+    sudan_color <- col2[as.character(sudan_status)]
+  } else {
+    sudan_color <- na_col}
+  
+  # Palestine border colour trick
+  # 1. Check Palestine's value
+  palestine_status <- data$var[data$iso3 == "PSE"]
+  
+  if (!is.na(palestine_status)) {
+    # 2. Assign names to color vector
+    names(col2) <- levels(data$var)
+    # 3. Get the color applied to Palestine
+    palestine_color <- col2[as.character(palestine_status)]
+  } else {
+    palestine_color <- na_col}
+  
+  
   # plot AC layer and other layers
   p <- p +
   # Stripe pattern for AC fillin with China colour
@@ -192,8 +231,14 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
     ggplot2::geom_sf(data=disb_dashed_black_trans,  col=line_col, fill="grey50",
           linewidth = line_width,
           linetype = "dashed") +
-  # white dashed lines where there is already black solid lines from base world map: Korean, Palestine, Egypt/Sudan, Kosovo
-    ggplot2::geom_sf(data=disb_dashed_white_trans,  col="white", fill="grey50",
+  # white dashed lines where there is already black solid lines from base world map: Korean DMZ, Palestine, Egypt/Sudan
+    ggplot2::geom_sf(data=disb_dashed_kor_trans,  col=korea_color, fill="grey50",
+                     linewidth = line_width,
+                     linetype = "dashed") +
+    ggplot2::geom_sf(data=disb_dashed_sdn_trans,  col=sudan_color, fill="grey50",
+                     linewidth = line_width,
+                     linetype = "dashed") +
+    ggplot2::geom_sf(data=disb_dashed_pse_trans,  col=palestine_color, fill="grey50",
                      linewidth = line_width,
                      linetype = "dashed") +
   # grey dashed lines for Sudan/South Sudan, Kenya/Sudan
