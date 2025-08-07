@@ -172,7 +172,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
                      linetype = 4) + # dotdash
     ggplot2::geom_sf(data=disb_dashed_pse_trans,  col=line_col, fill="grey50",
                      linewidth = line_width,
-                     linetype = "dotted") +
+                     linetype = "dashed") +
     # grey dashed lines for Sudan/South Sudan, Kenya/Sudan
     ggplot2::geom_sf(data=disb_dashed_grey_trans,  col="grey50", fill="grey50",
                      linewidth = line_width,
