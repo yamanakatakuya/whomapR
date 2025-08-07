@@ -78,7 +78,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   }
   
   # Construct CRS string
-  if (projetion != "wintri") {
+  if (projection != "wintri") {
     crs_plot <- paste0("+proj=", projection, " +lon_0=", offset, " +datum=WGS84 +units=m +no_defs")
   } else {
     crs_plot <- paste0("+proj=", projection, " +lon_0=", offset, " +R=6371000 +units=m +no_defs")
