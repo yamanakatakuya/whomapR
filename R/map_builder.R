@@ -1,4 +1,4 @@
-# R/helpers.R
+# R/map_builder.R
 
 #' Build base map layers and transformed geometries
 #'

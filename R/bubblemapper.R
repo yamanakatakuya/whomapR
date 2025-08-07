@@ -1,8 +1,4 @@
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Importing latest WHO geoJSON files (in ./shape folder)
-# the latest WHO shape/geoJSON files are available at https://gis-who.hub.arcgis.com/
-# Takuya Yamanaka, August 2025
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# R/bubblemapper.R
 
 #' Bubble world maps 2025 version
 #' `bubblemapper()` prints a bubble world map based on the latest WHO geoJSON files
