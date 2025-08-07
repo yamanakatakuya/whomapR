@@ -63,6 +63,10 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
 df is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
 numeric variable named "size".
 
+### map_builder
+
+This is a script that has common codes i.e. map data transformation, WHO disclaimer, and common map layers and theme settings.
+
 
 ## Examples:
 
