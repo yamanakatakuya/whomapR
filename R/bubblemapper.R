@@ -208,7 +208,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
       legend.text = element_text(size = 6),
       legend.justification = c(0.5, 1),
       legend.title = element_text(size = 6),
-      legend.background = element_rect(fill = water_col, color = NA),
+      legend.background = element_rect(fill = NA, color = NA),
       legend.position = legend_pos
     )
   
