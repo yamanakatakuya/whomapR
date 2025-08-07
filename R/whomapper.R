@@ -88,7 +88,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   # Validate and set projection
   if (!projection %in% valid_projs) {
     warning(paste0("Invalid projection '", projection, "' specified. Defaulting to 'eqc' (Plate Carrée)."))
-    projection <- "eqc"
+    projection <- "moll"
   }
   
   # Construct CRS string
@@ -236,7 +236,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                      linetype = "dashed") +
     ggplot2::geom_sf(data=disb_dashed_sdn_trans,  col=sudan_color, fill="grey50",
                      linewidth = line_width,
-                     linetype = "dotdashed") +
+                     linetype = "dotdash") +
     ggplot2::geom_sf(data=disb_dashed_pse_trans,  col=palestine_color, fill="grey50",
                      linewidth = line_width,
                      linetype = "dotted") +

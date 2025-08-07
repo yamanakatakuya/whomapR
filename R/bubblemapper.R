@@ -74,7 +74,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   # Validate and set projection
   if (!projection %in% valid_projs) {
     warning(paste0("Invalid projection '", projection, "' specified. Defaulting to 'eqc' (Plate Carrée)."))
-    projection <- "eqc"
+    projection <- "moll"
   }
   
   # Construct CRS string
