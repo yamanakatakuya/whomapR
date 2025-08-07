@@ -92,7 +92,11 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   }
   
   # Construct CRS string
+  if (projetion != "wintri") {
   crs_plot <- paste0("+proj=", projection, " +lon_0=", offset, " +datum=WGS84 +units=m +no_defs")
+  } else {
+    crs_plot <- paste0("+proj=", projection, " +lon_0=", offset, " +R=6371000 +units=m +no_defs")
+  }
   
   # 'break' any polygons that cross offset point
   data <- data |>
