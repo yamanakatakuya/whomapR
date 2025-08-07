@@ -76,7 +76,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   
   # Call WHO disclaimer
   if (disclaimer) {
-    disclaim <- get_who_disclaimer() # from map_builder.R
+    disclaim <- get_who_disclaimer()
   }
   
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -96,8 +96,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
     mutate(geometry = sf::st_point_on_surface(geometry)) |>
     sf::st_as_sf()
 
-    
-  # plot the base world map
+  # plot the base world map with bubble layer using bubble_points
   p <- ggplot2::ggplot() + 
     ggplot2::geom_sf(data=data_trans,  col=line_col, fill = "white", linewidth = line_width) +
     ggplot2::geom_sf(data = bubble_points,
@@ -121,7 +120,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
       size = guide_legend(override.aes = list(color = NA, fill = bubble_col, alpha = bubble_alpha))  # remove outline in legend
     ) 
   
-  # add AC layer and other layers
+  # add AC fill colour, other disbuted area fill colour and coloured dashed line for Korean DMZ, Palestine, Egypt/Sudan
   p <- p +
     # Stripe pattern for AC filled with China colour
     ggpattern::geom_sf_pattern(data = disa_ac_trans,
@@ -141,11 +140,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
     # fill white for lakes
     ggplot2::geom_sf(data=disa_lake_trans,  col=line_col, fill=water_col,
                      linewidth = line_width) +
-    # black dashed lines for Kenya/Sudan Kosovo etc
-    ggplot2::geom_sf(data=disb_dashed_black_trans,  col=line_col, fill="grey50",
-                     linewidth = line_width,
-                     linetype = "dashed") +
-    # black dashed lines where there is already black solid lines from base world map: Korean DMZ, Palestine, Egypt/Sudan
+    # black dashed lines where there are already black solid lines from base world map: Korean DMZ, Palestine, Egypt/Sudan
     ggplot2::geom_sf(data=disb_dashed_kor_trans,  col=line_col, fill="grey50",
                      linewidth = line_width,
                      linetype = "dashed") +
@@ -154,57 +149,23 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
                      linetype = 4) + # dotdash
     ggplot2::geom_sf(data=disb_dashed_pse_trans,  col=line_col, fill="grey50",
                      linewidth = line_width,
-                     linetype = "dashed") +
-    # grey dashed lines for J&K
-    ggplot2::geom_sf(data=disb_dashed_grey_trans,  col="grey50", fill="grey50",
-                     linewidth = line_width,
-                     linetype = "dashed") +
-    # black solid line for Arunachal Pradesh, Western Sahara, AC, Egypt Claim
-    ggplot2::geom_sf(data=disb_solid_trans,  col=line_col, fill="grey50",
-                     linewidth = line_width,
-                     linetype = "solid") +
-    # grey dotted lines for J&K control line 
-    ggplot2::geom_sf(data=disb_dotted_grey_trans,  col="grey50", fill="grey50",
-                     linewidth = line_width,
-                     linetype = "dotted") +
-    # black dotted lines for Abyei
-    ggplot2::geom_sf(data=disb_dotted_black_trans,  col=line_col, fill="grey50",
-                     linewidth = line_width,
-                     linetype = "dotted") +
-    # adjusting background/axis settings
-    ggplot2::theme(
-      panel.background = element_rect(fill = water_col, color = NA),
-      plot.background = element_rect(fill = water_col, color = NA)
-    ) +
-    ggplot2::theme(axis.title.x = element_blank(),
-                   axis.text.x = element_blank(),
-                   axis.ticks.x = element_blank(),
-                   axis.line.x = element_blank()) +
-    ggplot2::theme(panel.grid = element_blank()) +
-    # map title
-    ggplot2::labs(title = map_title) +
-    # adjusting legend settings
-    ggplot2::theme(
-      legend.key.size = unit(0.4, "cm"),
-      legend.key = element_rect(fill = "white", color = "white"),
-      legend.text = element_text(size = 6),
-      legend.justification = c(0.5, 1),
-      legend.title = element_text(size = 6),
-      legend.background = element_rect(fill = NA, color = NA),
-      legend.position = legend_pos
-    )
+                     linetype = "dashed") 
   
-  # disclaimer option
-  if (disclaimer == FALSE)
-    p
-  else
-  {
-    p +
-      ggplot2::labs(caption = disclaim) +
-      ggplot2::theme(plot.caption.position = 'plot',
-                     plot.caption = element_text(size = 6,
-                                                 hjust = 0.5))
-  }
+  #- - calling common disputed border and theme settings from map_builder.R - -#
+  p <- common_disputed_border(
+    p = p,
+    layers,
+    map_title,
+    disclaimer,
+    legend_pos,
+    line_col,
+    line_width,
+    water_col,
+    disclaim
+  )
+  
+  return(p)
+  
 }
 
 

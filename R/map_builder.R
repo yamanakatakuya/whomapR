@@ -56,3 +56,61 @@ get_who_disclaimer <- function() {
     "for which there may not yet be full agreement."
   )
 }
+
+
+# Common map layers
+common_disputed_border <- function(p,
+                                     layers,
+                                     map_title,
+                                     disclaimer,
+                                     legend_pos,
+                                     line_col,
+                                     line_width,
+                                     water_col,
+                                     disclaim) {
+  
+  p <- p +
+    # black dashed lines for Kenya/Sudan Kosovo etc
+    ggplot2::geom_sf(data = layers$disb_dashed_black, col = line_col, fill = "grey50", linewidth = line_width, linetype = "dashed") +
+    # grey dashed lines for J&K
+    ggplot2::geom_sf(data = layers$disb_dashed_grey, col = "grey50", fill = "grey50", linewidth = line_width, linetype = "dashed") +
+    # black solid line for Arunachal Pradesh, Western Sahara, AC, Egypt Claim
+    ggplot2::geom_sf(data = layers$disb_solid, col = line_col, fill = "grey50", linewidth = line_width, linetype = "solid") +
+    # grey dotted lines for J&K control line 
+    ggplot2::geom_sf(data = layers$disb_dotted_grey, col = "grey50", fill = "grey50", linewidth = line_width, linetype = "dotted") +
+    # black dotted lines for Abyei
+    ggplot2::geom_sf(data = layers$disb_dotted_black, col = line_col, fill = "grey50", linewidth = line_width, linetype = "dotted") +
+    # adjusting background/axis/legend settings
+    ggplot2::theme(
+      panel.background = ggplot2::element_rect(fill = water_col, color = NA),
+      plot.background = ggplot2::element_rect(fill = water_col, color = NA),
+      axis.title.x = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
+      axis.ticks.x = ggplot2::element_blank(),
+      axis.line.x = ggplot2::element_blank(),
+      panel.grid = ggplot2::element_blank(),
+      legend.key.size = grid::unit(0.4, "cm"),
+      legend.key = ggplot2::element_rect(fill = "white", color = "white"),
+      legend.text = ggplot2::element_text(size = 6),
+      legend.title = ggplot2::element_text(size = 6),
+      legend.justification = c(0.5, 1),
+      legend.background = ggplot2::element_rect(fill = NA, color = NA),
+      legend.position = legend_pos
+    ) +
+    # map title
+    ggplot2::labs(title = map_title)
+  
+  # WHO disclaimer option
+  if (isTRUE(disclaimer)) {
+    p <- p +
+      ggplot2::labs(caption = disclaim) +
+      ggplot2::theme(
+        plot.caption.position = 'plot',
+        plot.caption = ggplot2::element_text(size = 6, hjust = 0.5)
+      )
+  }
+  
+  return(p)
+  
+}
+  
