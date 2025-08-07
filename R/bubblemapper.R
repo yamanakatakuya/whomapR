@@ -8,9 +8,7 @@
 #' `bubblemapper()` prints a bubble world map based on the latest WHO geoJSON files
 #'  It requires ggplot2, ggpattern, sf and here
 #'
-#' @param df a dataframe. It must contain a variable "iso" (factor)
-#' with standard WHO ISO3 country codes.The categorical variable to be
-#' mapped should be named "var" (see examples).
+#' @param df A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'size' (numeric values to map as bubble sizes).
 #' @param colours A vector of colour values for each category in "var", excepting missing values.
 #' @param low_col First value of a gradient of colours.
 #' @param high_col Last value of a gradient of colours.
@@ -23,7 +21,6 @@
 #' @param disclaimer A boolean, inserts a standard WHO disclaimer.
 #' @param legend_pos A vector of two numbers, positions the legend.
 #' @return A ggplot2 plot.
-#' @param df A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'var' (categorical variable to map).
 #' @source Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 #' @author Takuya Yamanaka, adapted from scripts of whomap developed by Philippe Glaziou.
 #' @import ggplot2
@@ -33,8 +30,7 @@
 #' @import dplyr
 #' @examples
 #' bubblemapper(data.frame(iso3 = NA, var = NA))
-#' @export 
-
+#' @export
 bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
                        projection = "moll",
                        offset = 10.8,
@@ -57,8 +53,8 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   # required data
   if (is.data.frame(df) == FALSE)
     stop("df must be a dataframe")
-  if (all(c("iso3", "var") %in% names(df)) == FALSE)
-    stop("df must have two variables named 'iso3' and 'size'")
+  if (!all(c("iso3", "size") %in% names(df)))
+    stop("df must have two columns: 'iso3' and 'size'")
   
   df <- as.data.frame(df[!is.na(df$size) & df$size != "",])
   if (!is.numeric(df$size))

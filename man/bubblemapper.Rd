@@ -30,7 +30,7 @@ bubblemapper(
 )
 }
 \arguments{
-\item{df}{A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'var' (categorical variable to map).}
+\item{df}{A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'size' (numeric values to map as bubble sizes).}
 
 \item{line_col}{Colour of country border lines.}
 
