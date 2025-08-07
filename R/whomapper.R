@@ -81,7 +81,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   # option to switch map projection
   # Define valid projections
   valid_projs <- c(
-    "eqc", "moll", "robin", "wintri", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6",
+    "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6",
     "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90"
   )
   
@@ -92,12 +92,8 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   }
   
   # Construct CRS string
-  if (projection != "wintri") {
   crs_plot <- paste0("+proj=", projection, " +lon_0=", offset, " +datum=WGS84 +units=m +no_defs")
-  } else {
-    crs_plot <- paste0("+proj=", projection, " +lon_0=", offset, " +R=6371000 +units=m +no_defs")
-  }
-  
+
   # 'break' any polygons that cross offset point
   data <- data |>
     sf::st_break_antimeridian(lon_0 = offset)
