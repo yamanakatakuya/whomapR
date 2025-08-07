@@ -12,6 +12,8 @@ remotes::install_github('yamanakatakuya/whomapper')
 
 ## Usage: 
 
+### whomapper
+
 whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     projection = "moll",
@@ -33,8 +35,11 @@ df is a dataframe. It must contain a variable named "iso3" holding country ISO3 
 categorical variable named "var". There should be no more than 6 categories (excluding "No data" and 
 "Not applicable") for optimal display of the legend. The category labels should be short.
 
+
 15 different map projections are allowed, by changing "projection" (default setting is "moll" Molweide Projection).
 Option for projection: "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6", "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90"
+
+### bubblemapper
 
 bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
                        projection = "moll",
