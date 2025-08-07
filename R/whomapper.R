@@ -236,10 +236,10 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                      linetype = "dashed") +
     ggplot2::geom_sf(data=disb_dashed_sdn_trans,  col=sudan_color, fill="grey50",
                      linewidth = line_width,
-                     linetype = "dashed") +
+                     linetype = "dotdashed") +
     ggplot2::geom_sf(data=disb_dashed_pse_trans,  col=palestine_color, fill="grey50",
                      linewidth = line_width,
-                     linetype = "dashed") +
+                     linetype = "dotted") +
   # grey dashed lines for Sudan/South Sudan, Kenya/Sudan
     ggplot2::geom_sf(data=disb_dashed_grey_trans,  col="grey50", fill="grey50",
                      linewidth = line_width,
