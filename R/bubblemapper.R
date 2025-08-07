@@ -50,7 +50,9 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
                        legend_pos = c(0.17,0.42)
 )
 {
-  # required data
+  #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Data check and definition ----
+  #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   if (is.data.frame(df) == FALSE)
     stop("df must be a dataframe")
   if (!all(c("iso3", "size") %in% names(df)))
@@ -64,51 +66,22 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   data <- world |>
     dplyr::left_join(df, by = c("iso3"))
   
-  # option to switch map projection
-  # Define valid projections
-  valid_projs <- c(
-    "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6",
-    "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90"
-  )
+  #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Call map layers and WHO disclaimer from map_builder.R ----
+  #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Call map layers
+  layers <- build_map_layers(data, projection, offset)
+  # unpack a list
+  list2env(layers, envir = environment())
   
-  # Validate and set projection
-  if (!projection %in% valid_projs) {
-    warning(paste0("Invalid projection '", projection, "' specified. Defaulting to 'eqc' (Plate Carrée)."))
-    projection <- "moll"
+  # Call WHO disclaimer
+  if (disclaimer) {
+    disclaim <- get_who_disclaimer() # from map_builder.R
   }
   
-  # Construct CRS string
-    crs_plot <- paste0("+proj=", projection, " +lon_0=", offset, " +datum=WGS84 +units=m +no_defs")
-
-  # 'break' any polygons that cross offset point
-  data <- data |>
-    sf::st_break_antimeridian(lon_0 = offset)
-  
-  # data transformation to switch Plate Carrée (Equirectangular projection) and Mollweide projection
-  data_trans      <- sf::st_transform(data, crs_plot)
-  disa_ac_trans   <- sf::st_transform(disa_ac, crs_plot)
-  disa_lake_trans   <- sf::st_transform(disa_lake, crs_plot)
-  disa_nlake_nac_trans   <- sf::st_transform(disa_nlake_nac, crs_plot)
-  disb_dashed_black_trans   <- sf::st_transform(disb_dashed_black, crs_plot)
-  disb_dashed_kor_trans   <- sf::st_transform(disb_dashed_kor, crs_plot)
-  disb_dashed_sdn_trans   <- sf::st_transform(disb_dashed_sdn, crs_plot)
-  disb_dashed_pse_trans   <- sf::st_transform(disb_dashed_pse, crs_plot)
-  disb_dashed_grey_trans   <- sf::st_transform(disb_dashed_grey, crs_plot)
-  disb_solid_trans   <- sf::st_transform(disb_solid, crs_plot)
-  disb_dotted_grey_trans   <- sf::st_transform(disb_dotted_grey, crs_plot)
-  disb_dotted_black_trans   <- sf::st_transform(disb_dotted_black, crs_plot)
-  
-  # disclaimer
-  disclaim <- paste(
-    "\uA9 World Health Organization",
-    format(Sys.Date(), "%Y"),
-    ". All rights reserved.
-  The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of
-  the World Health Organization concerning the legal status of any country, territory, city or area or of its authorities,or concerning the delimitation
-  of its frontiers or boundaries. Dotted and dashed lines on maps represent approximate borderlines for which there may not yet be full agreement."
-  )
-  
-  # plotting an output
+  #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # plotting an output ----
+  #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # bubble points adjustment
   bubble_points <- data_trans |>
     filter(!is.na(size), !is.na(CENTER_LON), !is.na(CENTER_LAT)) |>
@@ -122,7 +95,8 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
     ungroup() |>
     mutate(geometry = sf::st_point_on_surface(geometry)) |>
     sf::st_as_sf()
-  
+
+    
   # plot the base world map
   p <- ggplot2::ggplot() + 
     ggplot2::geom_sf(data=data_trans,  col=line_col, fill = "white", linewidth = line_width) +
@@ -147,9 +121,9 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
       size = guide_legend(override.aes = list(color = NA, fill = bubble_col, alpha = bubble_alpha))  # remove outline in legend
     ) 
   
-  # plot AC layer and other layers
+  # add AC layer and other layers
   p <- p +
-    # Stripe pattern for AC fillin with China colour
+    # Stripe pattern for AC filled with China colour
     ggpattern::geom_sf_pattern(data = disa_ac_trans,
                                fill = "white",
                                col = "grey80",           # outline color
@@ -167,11 +141,11 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
     # fill white for lakes
     ggplot2::geom_sf(data=disa_lake_trans,  col=line_col, fill=water_col,
                      linewidth = line_width) +
-    # black dashed lines for Sudan/South Sudan, Kenya/Sudan
+    # black dashed lines for Kenya/Sudan Kosovo etc
     ggplot2::geom_sf(data=disb_dashed_black_trans,  col=line_col, fill="grey50",
                      linewidth = line_width,
                      linetype = "dashed") +
-    # white dashed lines where there is already black solid lines from base world map: Korean DMZ, Palestine, Egypt/Sudan
+    # black dashed lines where there is already black solid lines from base world map: Korean DMZ, Palestine, Egypt/Sudan
     ggplot2::geom_sf(data=disb_dashed_kor_trans,  col=line_col, fill="grey50",
                      linewidth = line_width,
                      linetype = "dashed") +
@@ -181,11 +155,11 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
     ggplot2::geom_sf(data=disb_dashed_pse_trans,  col=line_col, fill="grey50",
                      linewidth = line_width,
                      linetype = "dashed") +
-    # grey dashed lines for Sudan/South Sudan, Kenya/Sudan
+    # grey dashed lines for J&K
     ggplot2::geom_sf(data=disb_dashed_grey_trans,  col="grey50", fill="grey50",
                      linewidth = line_width,
                      linetype = "dashed") +
-    # black solid line for Arunachal Pradesh etc
+    # black solid line for Arunachal Pradesh, Western Sahara, AC, Egypt Claim
     ggplot2::geom_sf(data=disb_solid_trans,  col=line_col, fill="grey50",
                      linewidth = line_width,
                      linetype = "solid") +
@@ -193,7 +167,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
     ggplot2::geom_sf(data=disb_dotted_grey_trans,  col="grey50", fill="grey50",
                      linewidth = line_width,
                      linetype = "dotted") +
-    # black dotted lines for Sudan South Sudan
+    # black dotted lines for Abyei
     ggplot2::geom_sf(data=disb_dotted_black_trans,  col=line_col, fill="grey50",
                      linewidth = line_width,
                      linetype = "dotted") +
