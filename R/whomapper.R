@@ -184,7 +184,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   
   # Sudan vs Egypt border colour trick
   # 1. Check Sudan's value
-  sudan_status <- data$var[data$iso3 == "SDN"]
+  sudan_status <- data$var[data$iso3 == "SDN"] |> na.omit() |> head(1)
   
   if (!is.na(sudan_status)) {
     # 2. Assign names to color vector
