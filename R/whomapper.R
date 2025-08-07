@@ -83,7 +83,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   # Define valid projections
   valid_projs <- c(
     "eqc", "moll", "robin", "wintri", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6",
-    "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45"
+    "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90"
   )
   
   # Validate and set projection
