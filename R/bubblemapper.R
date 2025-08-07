@@ -112,8 +112,12 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   # bubble points adjustment
   bubble_points <- data_trans |>
     filter(!is.na(size), !is.na(CENTER_LON), !is.na(CENTER_LAT)) |>
-    arrange(desc(iso3)) |>
-    distinct(iso3, .keep_all = TRUE) |>  # Keep only one row per iso3
+    group_by(iso3) |>
+    filter(
+      iso3 != "RUS" | (iso3 == "RUS" & round(CENTER_LAT, 5) == 61.98829)
+    ) |>
+    slice(1) |>  # keep only one per iso3 (RUS already filtered)
+    ungroup() |>
     mutate(geometry = sf::st_point_on_surface(geometry)) |>
     sf::st_as_sf()
   
