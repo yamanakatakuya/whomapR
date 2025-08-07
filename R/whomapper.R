@@ -126,11 +126,11 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   )
 
   # 2. colour definition ---
-  if (is.null(colour)) {
+  if (is.null(colours)) {
   xc <- seq(0, 1, length = length(levels(data[["var"]])))
   col <- scales::seq_gradient_pal(low_col, high_col)(xc)
   } else {
-  col <- colour
+  col <- colours
   }
 
   col2 <- c(col, na_col, 'grey60')
