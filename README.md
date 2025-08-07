@@ -1,8 +1,8 @@
 # R package for whomap and bubble map
 version 0.1.0
 
-Draws choropleth and bubble maps of the world, based on the 2025 (latest) WHO shapefiles (without simplifications to be compliant to WHO legal requiremnets)
-This package and functions of whomapper and bubblemapper are updated version of whomap package developed by Philippe Glaziou.
+Draws choropleth and bubble maps of the world, based on the 2025 (latest) WHO shapefiles (without simplifications to be compliant to WHO legal requirements).
+This package and functions of whomapper and bubblemapper are the updated version of whomap package developed by Philippe Glaziou.
 
 
 ## Install:
