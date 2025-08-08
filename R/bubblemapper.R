@@ -118,9 +118,9 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   
   #- - - - -plot colour trick start- - - - -#
   china_color <- "white"
-  korea_color <- line_col
-  sudan_color <- line_col
-  palestine_color <- line_col
+  korea_color <- "white"
+  sudan_color <- "white"
+  palestine_color <- "white"
   #- - - - -plot colour trick end- - - - -#
   
   #- - calling common disputed border and theme settings from map_builder.R - -#
