@@ -104,7 +104,7 @@ common_disputed_border <- function(p,
                      linetype = 4) +
     ggplot2::geom_sf(data=layers$disb_dashed_pse_trans,  col=palestine_color, fill="grey50",
                      linewidth = line_width,
-                     linetype = "dashed") 
+                     linetype = "dashed") +
   # black dashed lines for Kenya/Sudan Kosovo etc
     ggplot2::geom_sf(data = layers$disb_dashed_black, col = line_col, fill = "grey50", linewidth = line_width, linetype = "dashed") +
     # grey dashed lines for J&K
