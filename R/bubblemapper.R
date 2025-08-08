@@ -28,7 +28,7 @@
 #' bubblemapper(data.frame(iso3 = NA, var = NA))
 #' @export
 bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
-                       projection = "moll",
+                       projection = "robin",
                        offset = 10.8,
                        bubble_col = 'dodgerblue',
                        bubble_alpha = 0.4,
