@@ -6,6 +6,8 @@
 #' @param projection Projection string (e.g., "moll", "bonne +lat_1=45")
 #' @param offset Central meridian for wrapping map
 #' @return A list with transformed sf objects (world, disa/disb layers, crs string)
+
+#' Map projection setting and CRS adjustment
 build_map_layers <- function(data, 
                              projection, 
                              offset) {
@@ -58,19 +60,52 @@ get_who_disclaimer <- function() {
 }
 
 
-# Common map layers
+#' Common map layers
 common_disputed_border <- function(p,
-                                     layers,
-                                     map_title,
-                                     disclaimer,
-                                     legend_pos,
-                                     line_col,
-                                     line_width,
-                                     water_col,
-                                     disclaim) {
+                                   layers,
+                                   map_title,
+                                   disclaimer,
+                                   legend_pos,
+                                   line_col,
+                                   line_width,
+                                   water_col,
+                                   china_color,
+                                   korea_color,
+                                   sudan_color,
+                                   palestine_color,
+                                   disclaim) {
   
+  # add AC fill colour, other disbuted area fill colour and coloured dashed line for Korean DMZ, Palestine, Egypt/Sudan
   p <- p +
-    # black dashed lines for Kenya/Sudan Kosovo etc
+    # Stripe pattern for AC filled with China colour
+    ggpattern::geom_sf_pattern(data = layers$disa_ac_trans,
+                               fill = china_color,
+                               col = "grey80",           # outline color
+                               linewidth = line_width,          # outline thickness
+                               pattern = "stripe",
+                               pattern_fill = "grey80",  # stripe color
+                               pattern_colour = "grey80",
+                               pattern_size = 0.050,     # stripe thickness
+                               pattern_angle = 45,
+                               pattern_density = 0.3,
+                               pattern_spacing = 0.002) +
+    # fill grey for other disputed areas
+    ggplot2::geom_sf(data=layers$disa_nlake_nac_trans,  col="grey80", fill="grey80",
+                     linewidth = line_width) +
+    # fill white for lakes
+    ggplot2::geom_sf(data=layers$disa_lake_trans,  col=line_col, fill=water_col,
+                     linewidth = line_width) +
+    # coloured dashed lines where there are already black solid lines from base world map: Korean DMZ, Palestine, Egypt/Sudan
+    ggplot2::geom_sf(data=layers$disb_dashed_kor_trans,  col=korea_color, fill="grey50",
+                     linewidth = line_width,
+                     linetype = "dashed") +
+    ggplot2::geom_sf(data=layers$disb_dashed_sdn_trans,  col=sudan_color, fill="grey50",
+                     linewidth = line_width,
+                     linetype = 4) +
+    ggplot2::geom_sf(data=layers$disb_dashed_pse_trans,  col=palestine_color, fill="grey50",
+                     linewidth = line_width,
+                     linetype = "dashed") 
+  # black dashed lines for Kenya/Sudan Kosovo etc
     ggplot2::geom_sf(data = layers$disb_dashed_black, col = line_col, fill = "grey50", linewidth = line_width, linetype = "dashed") +
     # grey dashed lines for J&K
     ggplot2::geom_sf(data = layers$disb_dashed_grey, col = "grey50", fill = "grey50", linewidth = line_width, linetype = "dashed") +
