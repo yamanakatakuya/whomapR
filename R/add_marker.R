@@ -74,15 +74,7 @@ add_marker <- function(iso3 = NA_character_,
                      fill = col,
                      alpha = alpha
     ),
-    ggplot2::scale_shape_manual(values=shape, label=lab),
-    ggplot2::theme(
-      panel.background = ggplot2::element_rect(fill = NA, color = NA),
-      plot.background = ggplot2::element_rect(fill = NA, color = NA),
-      axis.title = ggplot2::element_blank(),
-      axis.text = ggplot2::element_blank(),
-      axis.ticks = ggplot2::element_blank(),
-      axis.line = ggplot2::element_blank(),
-      panel.grid = ggplot2::element_blank())
+    ggplot2::scale_shape_manual(values=shape, label=lab)
   )
 
 }
