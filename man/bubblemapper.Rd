@@ -11,7 +11,7 @@ Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 \usage{
 bubblemapper(
   df = data.frame(iso3 = NA, size = NA),
-  projection = "moll",
+  projection = "robin",
   offset = 10.8,
   bubble_col = "dodgerblue",
   bubble_alpha = 0.4,

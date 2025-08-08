@@ -1,5 +1,5 @@
 # R package for whomap and bubble map
-version 0.1.3
+version 0.1.4
 
 Draws choropleth and bubble maps of the world, based on the 2025 (latest) WHO shapefiles (without simplifications to be compliant to WHO legal requirements).
 This package and functions of whomapper and bubblemapper are the updated version of whomap package developed by Philippe Glaziou.
@@ -62,6 +62,19 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
 
 df is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
 numeric variable named "size".
+
+### add_marker
+
+add_marker <- function(iso3 = NA_character_,
+                       shape = 17,
+                       col = 'red',
+                       size = 3,
+                       alpha = 1,
+                       lab = '',
+                       projection = "robin",
+                       offset = 10.8) 
+
+iso3 is a vector. It must contain a variable named "iso3" holding country ISO3 codes. This function is for adding the second layer of country markers on a map produced by whomapper() or bubblemapper().
 
 ### map_builder
 

@@ -30,20 +30,25 @@ build_map_layers <- function(data,
   data <- data |> sf::st_break_antimeridian(lon_0 = offset)
   
   # data transformation according to map projection and CRS
+  
+  quiet_st_transform <- function(x, crs) {
+    suppressWarnings(sf::st_transform(x, crs))
+  }
+  
   list(
     crs_plot = crs_plot,
-    data_trans = sf::st_transform(data, crs_plot),
-    disa_ac_trans = sf::st_transform(disa_ac, crs_plot),
-    disa_lake_trans = sf::st_transform(disa_lake, crs_plot),
-    disa_nlake_nac_trans = sf::st_transform(disa_nlake_nac, crs_plot),
-    disb_dashed_black_trans = sf::st_transform(disb_dashed_black, crs_plot),
-    disb_dashed_kor_trans = sf::st_transform(disb_dashed_kor, crs_plot),
-    disb_dashed_sdn_trans = sf::st_transform(disb_dashed_sdn, crs_plot),
-    disb_dashed_pse_trans = sf::st_transform(disb_dashed_pse, crs_plot),
-    disb_dashed_grey_trans = sf::st_transform(disb_dashed_grey, crs_plot),
-    disb_solid_trans = sf::st_transform(disb_solid, crs_plot),
-    disb_dotted_grey_trans = sf::st_transform(disb_dotted_grey, crs_plot),
-    disb_dotted_black_trans = sf::st_transform(disb_dotted_black, crs_plot)
+    data_trans = quiet_st_transform(data, crs_plot),
+    disa_ac_trans = quiet_st_transform(disa_ac, crs_plot),
+    disa_lake_trans = quiet_st_transform(disa_lake, crs_plot),
+    disa_nlake_nac_trans = quiet_st_transform(disa_nlake_nac, crs_plot),
+    disb_dashed_black_trans = quiet_st_transform(disb_dashed_black, crs_plot),
+    disb_dashed_kor_trans = quiet_st_transform(disb_dashed_kor, crs_plot),
+    disb_dashed_sdn_trans = quiet_st_transform(disb_dashed_sdn, crs_plot),
+    disb_dashed_pse_trans = quiet_st_transform(disb_dashed_pse, crs_plot),
+    disb_dashed_grey_trans = quiet_st_transform(disb_dashed_grey, crs_plot),
+    disb_solid_trans = quiet_st_transform(disb_solid, crs_plot),
+    disb_dotted_grey_trans = quiet_st_transform(disb_dotted_grey, crs_plot),
+    disb_dotted_black_trans = quiet_st_transform(disb_dotted_black, crs_plot)
   )
 }
 
@@ -117,6 +122,7 @@ common_disputed_border <- function(p,
     ggplot2::geom_sf(data = layers$disb_dotted_black, col = line_col, fill = "grey50", linewidth = line_width, linetype = "dotted") +
     # adjusting background/axis/legend settings
     ggplot2::theme(
+      panel.border = element_blank(),
       panel.background = ggplot2::element_rect(fill = water_col, color = NA),
       plot.background = ggplot2::element_rect(fill = water_col, color = NA),
       axis.title.x = ggplot2::element_blank(),

@@ -12,7 +12,7 @@ Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 whomapper(
   df = data.frame(iso3 = NA, var = NA),
   colours = NULL,
-  projection = "moll",
+  projection = "robin",
   offset = 10.8,
   low_col = "#BDD7E7",
   high_col = "#08519C",

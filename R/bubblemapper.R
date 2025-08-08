@@ -80,16 +80,16 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # bubble points adjustment
   bubble_points <- data_trans |>
-    filter(!is.na(size), !is.na(CENTER_LON), !is.na(CENTER_LAT)) |>
-    group_by(iso3) |>
-    mutate(row_number = row_number()) |>
-    filter(
+    # dplyr::filter(!is.na(size), !is.na(CENTER_LON), !is.na(CENTER_LAT)) |>
+    dplyr::group_by(iso3) |>
+    dplyr::mutate(row_number = dplyr::row_number()) |>
+    dplyr::filter(
       (iso3 == "RUS" & row_number == 2) |
         (iso3 != "RUS" & row_number == 1)
     ) |>
-    select(-row_number) |>
-    ungroup() |>
-    mutate(geometry = sf::st_point_on_surface(geometry)) |>
+    dplyr::select(-row_number) |>
+    dplyr::ungroup() |>
+    dplyr::mutate(geometry = sf::st_point_on_surface(geometry)) |>
     sf::st_as_sf()
 
   # plot the base world map with bubble layer using bubble_points
