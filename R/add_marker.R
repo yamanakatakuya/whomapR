@@ -62,7 +62,7 @@ add_marker <- function(iso3 = NA_character_,
     dplyr::ungroup() |>
     dplyr::mutate(geometry = sf::st_point_on_surface(geometry)) |>
     sf::st_as_sf() |>
-    filter(iso3 %in% iso3_list)
+    dplyr::filter(iso3 %in% iso3_list)
   
   # Plotting marker points
   list(

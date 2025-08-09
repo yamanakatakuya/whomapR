@@ -5,6 +5,7 @@
 #' @param data The merged map data with iso3, size, etc.
 #' @param projection Projection string (e.g., "moll", "bonne +lat_1=45")
 #' @param offset Central meridian for wrapping map
+#' @author Takuya Yamanaka
 #' @return A list with transformed sf objects (world, disa/disb layers, crs string)
 
 #' Map projection setting and CRS adjustment
@@ -143,7 +144,7 @@ common_disputed_border <- function(p,
     # black dotted lines for Abyei
     ggplot2::geom_sf(data = layers$disb_dotted_black, col = line_col, fill = "grey50", linewidth = line_width, linetype = "dotted") +
     # zooming for regional map: default is Global
-    coord_sf(
+    ggplot2::coord_sf(
       default_crs = sf::st_crs(4326),
       xlim        = zoom_info$x,
       ylim        = zoom_info$y
