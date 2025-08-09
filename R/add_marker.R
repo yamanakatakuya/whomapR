@@ -22,7 +22,6 @@ add_marker <- function(iso3 = NA_character_,
                        col = 'red',
                        size = 3,
                        alpha = 1,
-                       lab = '',
                        projection = "robin",
                        offset = 10.8) {
   
@@ -73,8 +72,7 @@ add_marker <- function(iso3 = NA_character_,
                      color = col,
                      fill = col,
                      alpha = alpha
-    ),
-    ggplot2::scale_shape_manual(values=shape, label=lab)
+    )
   )
-
+  
 }

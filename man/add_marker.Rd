@@ -11,7 +11,6 @@ add_marker(
   col = "red",
   size = 3,
   alpha = 1,
-  lab = "",
   projection = "robin",
   offset = 10.8
 )

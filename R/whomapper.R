@@ -4,7 +4,6 @@
 #' `whomapper()` prints a choropleth world map based on the latest WHO geoJSON files
 #'  It requires ggplot2, ggpattern, sf and here
 #'
-#' @param df a dataframe. It must contain a variable "iso" (factor)
 #' with standard WHO ISO3 country codes.The categorical variable to be
 #' mapped should be named "var" (see examples).
 #' @param colours A vector of colour values for each category in "var", excepting missing values.
@@ -19,7 +18,7 @@
 #' @param disclaimer A boolean, inserts a standard WHO disclaimer.
 #' @param legend_pos A vector of two numbers, positions the legend.
 #' @return A ggplot2 plot.
-#' @param df A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'var' (categorical variable to map).
+#' @param X A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'var' (categorical variable to map).
 #' @source Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 #' @author Takuya Yamanaka, adapted from scripts of whomap developed by Philippe Glaziou.
 #' @import ggplot2
@@ -31,7 +30,7 @@
 #' whomapper(data.frame(iso3 = NA, var = NA))
 #' @export 
 
-whomapper <- function (df = data.frame(iso3 = NA, var = NA),
+whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     projection = "robin",
                     offset = 10.8,
@@ -53,17 +52,17 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   # Data check and definition ----
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # required data frame
-  if (is.data.frame(df) == FALSE)
-    stop("df must be a dataframe")
-  if (all(c("iso3", "var") %in% names(df)) == FALSE)
-    stop("df must have two variables named 'iso3' and 'var'")
+  if (is.data.frame(X) == FALSE)
+    stop("X must be a dataframe")
+  if (all(c("iso3", "var") %in% names(X)) == FALSE)
+    stop("X must have two variables named 'iso3' and 'var'")
   
-  df <- as.data.frame(df[!is.na(df$var) & df$var != "",])
-  if (is.factor(df$var) &
-      !is.na(match('', levels(df$var))))
-    df <- droplevels(df[!grepl("^\\s*$", df$var), , drop = FALSE])
-  if (!is.factor(df$var))
-    df$var <- as.factor(df$var)
+  X <- as.data.frame(X[!is.na(X$var) & X$var != "",])
+  if (is.factor(X$var) &
+      !is.na(match('', levels(X$var))))
+    X <- droplevels(X[!grepl("^\\s*$", X$var), , drop = FALSE])
+  if (!is.factor(X$var))
+    X$var <- as.factor(X$var)
   
   # colour definition ---
   if (is.null(colours)) {
@@ -77,7 +76,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
   
   # leftjoin a dataset with the base world map
   data <- world |>
-  dplyr::left_join(df, by = c("iso3"))
+  dplyr::left_join(X, by = c("iso3"))
   
   # --- Sync SJM with NOR, and GUF with FRA ---
   # Get values from 'var' for NOR and FRA

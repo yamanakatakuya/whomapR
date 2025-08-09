@@ -10,7 +10,7 @@ Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 }
 \usage{
 bubblemapper(
-  df = data.frame(iso3 = NA, size = NA),
+  X = data.frame(iso3 = NA, size = NA),
   projection = "robin",
   offset = 10.8,
   bubble_col = "dodgerblue",
@@ -30,8 +30,6 @@ bubblemapper(
 )
 }
 \arguments{
-\item{df}{A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'size' (numeric values to map as bubble sizes).}
-
 \item{line_col}{Colour of country border lines.}
 
 \item{map_title}{Map title.}
@@ -47,6 +45,8 @@ bubblemapper(
 \item{disclaimer}{A boolean, inserts a standard WHO disclaimer.}
 
 \item{legend_pos}{A vector of two numbers, positions the legend.}
+
+\item{df}{A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'size' (numeric values to map as bubble sizes).}
 
 \item{colours}{A vector of colour values for each category in "var", excepting missing values.}
 

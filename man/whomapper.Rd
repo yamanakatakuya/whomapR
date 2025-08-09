@@ -10,7 +10,7 @@ Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 }
 \usage{
 whomapper(
-  df = data.frame(iso3 = NA, var = NA),
+  X = data.frame(iso3 = NA, var = NA),
   colours = NULL,
   projection = "robin",
   offset = 10.8,
@@ -28,7 +28,7 @@ whomapper(
 )
 }
 \arguments{
-\item{df}{A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'var' (categorical variable to map).}
+\item{X}{A dataframe with two columns: 'iso3' (character or factor WHO country codes) and 'var' (categorical variable to map).}
 
 \item{colours}{A vector of colour values for each category in "var", excepting missing values.}
 
@@ -56,9 +56,8 @@ whomapper(
 A ggplot2 plot.
 }
 \description{
-Choropleth world maps 2025 version
-\code{whomapper()} prints a choropleth world map based on the latest WHO geoJSON files
-It requires ggplot2, ggpattern, sf and here
+with standard WHO ISO3 country codes.The categorical variable to be
+mapped should be named "var" (see examples).
 }
 \examples{
 whomapper(data.frame(iso3 = NA, var = NA))

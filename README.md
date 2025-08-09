@@ -1,5 +1,5 @@
 # R package for whomap and bubble map
-version 0.1.4
+version 0.1.5
 
 Draws choropleth and bubble maps of the world, based on the 2025 (latest) WHO shapefiles (without simplifications to be compliant to WHO legal requirements).
 This package and functions of whomapper and bubblemapper are the updated version of whomap package developed by Philippe Glaziou.
@@ -14,7 +14,7 @@ remotes::install_github('yamanakatakuya/whomapper')
 
 ### whomapper
 
-whomapper <- function (df = data.frame(iso3 = NA, var = NA),
+whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     projection = "moll",
                     offset = 10.8,
@@ -31,7 +31,7 @@ whomapper <- function (df = data.frame(iso3 = NA, var = NA),
                     legend_pos = c(0.17,0.42)
 )
     
-df is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
+X is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
 categorical variable named "var". There should be no more than 6 categories (excluding "No data" and 
 "Not applicable") for optimal display of the legend. The category labels should be short.
 
@@ -41,7 +41,7 @@ Option for projection: "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", "
 
 ### bubblemapper
 
-bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
+bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
                        projection = "moll",
                        offset = 10.8,
                        bubble_col = 'dodgerblue',
@@ -60,7 +60,7 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
                        legend_pos = c(0.17,0.42)
 )
 
-df is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
+X is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
 numeric variable named "size".
 
 ### add_marker
@@ -79,6 +79,15 @@ iso3 is a vector. It must contain a variable named "iso3" holding country ISO3 c
 ### map_builder
 
 This is a script that has common codes i.e. map data transformation, WHO disclaimer, and common map layers and theme settings, used both by whomapper.R and bubblemapper.R
+
+### NOTE
+
+When text, shapes, segments need to be added with ggplot2::annotate, additional CRS coordinates are required.
+Example:
+   add_annotate("text", x = -50, y = 10, lab = "Example", size = 4, col = "blue") +
+   coord_sf(
+     default_crs = sf::st_crs(4326)  # data is provided as long-lat
+   )
 
 
 ## Examples:

@@ -27,7 +27,7 @@
 #' @examples
 #' bubblemapper(data.frame(iso3 = NA, var = NA))
 #' @export
-bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
+bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
                        projection = "robin",
                        offset = 10.8,
                        bubble_col = 'dodgerblue',
@@ -49,18 +49,18 @@ bubblemapper <- function (df = data.frame(iso3 = NA, size = NA),
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Data check and definition ----
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  if (is.data.frame(df) == FALSE)
-    stop("df must be a dataframe")
-  if (!all(c("iso3", "size") %in% names(df)))
-    stop("df must have two columns: 'iso3' and 'size'")
+  if (is.data.frame(X) == FALSE)
+    stop("X must be a dataframe")
+  if (!all(c("iso3", "size") %in% names(X)))
+    stop("X must have two columns: 'iso3' and 'size'")
   
-  df <- as.data.frame(df[!is.na(df$size) & df$size != "",])
-  if (!is.numeric(df$size))
-    df$size <- as.numeric(df$size)
+  X <- as.data.frame(X[!is.na(X$size) & X$size != "",])
+  if (!is.numeric(X$size))
+    X$size <- as.numeric(X$size)
   
   # leftjoin a dataset with the base world map
   data <- world |>
-    dplyr::left_join(df, by = c("iso3"))
+    dplyr::left_join(X, by = c("iso3"))
   
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Call map layers and WHO disclaimer from map_builder.R ----
