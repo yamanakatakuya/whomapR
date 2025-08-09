@@ -76,18 +76,29 @@ add_marker <- function(iso3 = NA_character_,
 
 iso3 is a vector. It must contain a variable named "iso3" holding country ISO3 codes. This function is for adding the second layer of country markers on a map produced by whomapper() or bubblemapper().
 
+### add_annotate
+
+add_annotate <- function(
+    geom,
+    x = NULL, y = NULL,
+    xend = NULL, yend = NULL,
+    xmin = NULL, ymin = NULL,
+    xmax = NULL, ymax = NULL,
+    linewidth = NULL,
+    size = NULL,
+    col = NULL,
+    lab = NULL,
+    include_coord = FALSE,
+    default_crs = 4326
+) 
+
+This function is for adding texts, shapes, segments etc using ggplot2::annotate (with CRS adjustment) on a map produced by whomapper() or bubblemapper().
+When add_annotate is used multiple times, only the first annotate requires "include_coord = TRUE"."
+
+
 ### map_builder
 
 This is a script that has common codes i.e. map data transformation, WHO disclaimer, and common map layers and theme settings, used both by whomapper.R and bubblemapper.R
-
-### NOTE
-
-When text, shapes, segments need to be added with ggplot2::annotate, additional CRS coordinates are required.
-Example:
-   add_annotate("text", x = -50, y = 10, lab = "Example", size = 4, col = "blue") +
-   coord_sf(
-     default_crs = sf::st_crs(4326)  # data is provided as long-lat
-   )
 
 
 ## Examples:
@@ -127,7 +138,7 @@ whomapper(brics, legend_title = 'BRICS', legend_pos = c(0.7, 0.52), offset = 150
 <img width="3000" height="1800" alt="p4" src="https://github.com/user-attachments/assets/d17be31a-0a5d-4fe1-8c5e-596e0e5718ab" />
 
 
-### Bubble map, with Hammer projection
+### Bubble map with add_annotate, with Hammer projection
 brics$size <-  c(1e4, 1e5, 3e5, 5e5, 1e6)
 
 bubblemapper(brics,legend_title = "Size of value",
@@ -135,7 +146,13 @@ bubblemapper(brics,legend_title = "Size of value",
              scale_breaks = c(1e4, 2.5e5, 5e5, 1e6),
              scale_limits = c(1e4, 1e6),
              scale_labels = c("10 000","250 000","500 000","1 000 000"),
-             legend_pos = c(0.17,0.54), projection = "hammer") 
+             legend_pos = c(0.17,0.54), projection = "hammer") +
+             
+  add_annotate('text', lab='South Africa', x=50, y=-30, size=3, include_coord = TRUE) +
+  add_annotate("segment",x=25, xend=45, y=-29, yend=-29) +
+  
+  add_annotate('text', lab='Russian Federation', x=150, y=83, size=3) +
+  add_annotate("segment",x=89, xend=90, y=58, yend=82) 
 
 
 <img width="3000" height="1800" alt="p5" src="https://github.com/user-attachments/assets/148f0f21-6efb-45d9-b5fa-d8b06fa40440" />
