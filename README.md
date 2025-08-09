@@ -157,8 +157,10 @@ bubblemapper(brics,legend_title = "Size of value",
   add_annotate('text', lab='Russian Federation', x=150, y=83, size=3) +
   add_annotate("segment",x=89, xend=90, y=58, yend=82) 
 
+<img width="3000" height="1800" alt="p5" src="https://github.com/user-attachments/assets/9fe47923-445a-4978-aa89-2bf4d62a8f8c" />
 
-<img width="3000" height="1800" alt="p5" src="https://github.com/user-attachments/assets/148f0f21-6efb-45d9-b5fa-d8b06fa40440" />
+
+
 
 
 
