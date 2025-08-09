@@ -33,7 +33,7 @@
 whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
                     projection = "robin",
-                    offset = 10.8,
+                    offset = NULL,
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
                     line_col = 'black',
@@ -44,7 +44,8 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     na_label = 'No data',
                     na_col = 'white',
                     disclaimer = FALSE,
-                    legend_pos = c(0.17,0.42)
+                    legend_pos = c(0.17,0.42),
+                    zoom = 'Global'
 )
 {
   
@@ -92,6 +93,13 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Call map layers and WHO disclaimer from map_builder.R ----
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Call zoom setting for regional map
+  zoom_info <- region_zoom(zoom)
+  # if user didn't supply offset, use zoom default
+  if (is.null(offset)) {
+    offset <- zoom_info$offset
+  }
+  
   # Call map layers
   layers <- build_map_layers(data, projection, offset)
   # unpack a list
@@ -101,7 +109,7 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
   if (disclaimer) {
     disclaim <- get_who_disclaimer()
   }
-  
+
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # plotting an output ----
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -193,7 +201,8 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
     korea_color,
     sudan_color,
     palestine_color,
-    disclaim
+    disclaim,
+    zoom_info
   )
   
   return(p)

@@ -64,6 +64,27 @@ get_who_disclaimer <- function() {
   )
 }
 
+#' Zoom setting
+region_zoom <- function(zoom) {
+  
+  # zoom and offset settings in lon/lat (EPSG:4326)
+  zoom_specs <- list(
+    Global = list(x = c(-180, 180), y = c(-90, 90), offset = 10.8), 
+    WPR    = list(x = c(  60, 215), y = c(-50, 55), offset = 150),
+    EMR    = list(x = c( -14, 77), y = c(-2, 47), offset = 10.8),
+    EUR    = list(x = c( -60, 180), y = c( 28, 85), offset = 10.8),
+    AFR    = list(x = c( -25, 55), y = c(-40, 40), offset = 10.8),
+    SEA    = list(x = c(  62, 130), y = c(-10, 36), offset = 80),
+    AMR    = list(x = c(-175, -35), y = c(-60, 85), offset = 203)
+  )
+  if (!zoom %in% names(zoom_specs)) {
+    stop(sprintf("%s is not on my list of zoom level options: %s",
+                 zoom, paste(names(zoom_specs), collapse = ", ")))
+  }
+  
+  zoom_specs[[zoom]]
+  
+}
 
 #' Common map layers
 common_disputed_border <- function(p,
@@ -78,7 +99,8 @@ common_disputed_border <- function(p,
                                    korea_color,
                                    sudan_color,
                                    palestine_color,
-                                   disclaim) {
+                                   disclaim,
+                                   zoom_info = zoom_info) {
   
   # add AC fill colour, other disbuted area fill colour and coloured dashed line for Korean DMZ, Palestine, Egypt/Sudan
   p <- p +
@@ -120,15 +142,21 @@ common_disputed_border <- function(p,
     ggplot2::geom_sf(data = layers$disb_dotted_grey, col = "grey50", fill = "grey50", linewidth = line_width, linetype = "dotted") +
     # black dotted lines for Abyei
     ggplot2::geom_sf(data = layers$disb_dotted_black, col = line_col, fill = "grey50", linewidth = line_width, linetype = "dotted") +
+    # zooming for regional map: default is Global
+    coord_sf(
+      default_crs = sf::st_crs(4326),
+      xlim        = zoom_info$x,
+      ylim        = zoom_info$y
+    ) +
     # adjusting background/axis/legend settings
     ggplot2::theme(
       panel.border = element_blank(),
       panel.background = ggplot2::element_rect(fill = water_col, color = NA),
       plot.background = ggplot2::element_rect(fill = water_col, color = NA),
-      axis.title.x = ggplot2::element_blank(),
-      axis.text.x = ggplot2::element_blank(),
-      axis.ticks.x = ggplot2::element_blank(),
-      axis.line.x = ggplot2::element_blank(),
+      axis.title = ggplot2::element_blank(),
+      axis.text = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      axis.line = ggplot2::element_blank(),
       panel.grid = ggplot2::element_blank(),
       legend.key.size = grid::unit(0.4, "cm"),
       legend.key = ggplot2::element_rect(fill = "white", color = "white"),

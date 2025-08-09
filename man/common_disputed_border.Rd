@@ -17,7 +17,8 @@ common_disputed_border(
   korea_color,
   sudan_color,
   palestine_color,
-  disclaim
+  disclaim,
+  zoom_info = zoom_info
 )
 }
 \description{

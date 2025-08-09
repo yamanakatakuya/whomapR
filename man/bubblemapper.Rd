@@ -12,7 +12,7 @@ Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 bubblemapper(
   X = data.frame(iso3 = NA, size = NA),
   projection = "robin",
-  offset = 10.8,
+  offset = NULL,
   bubble_col = "dodgerblue",
   bubble_alpha = 0.4,
   scale_breaks,
@@ -26,7 +26,8 @@ bubblemapper(
   na_label = "No data",
   na_col = "white",
   disclaimer = FALSE,
-  legend_pos = c(0.17, 0.42)
+  legend_pos = c(0.17, 0.42),
+  zoom = "Global"
 )
 }
 \arguments{
