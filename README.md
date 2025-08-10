@@ -145,9 +145,11 @@ bubblemapper(brics,legend_title = "Size of value",
              legend_pos = c(0.17,0.54), projection = "hammer") +
              
   add_annotate('text', lab='South Africa', x=50, y=-30, size=3, include_coord = TRUE) +
+  
   add_annotate("segment",x=25, xend=45, y=-29, yend=-29) +
   
   add_annotate('text', lab='Russian Federation', x=150, y=83, size=3) +
+  
   add_annotate("segment",x=89, xend=90, y=58, yend=82) 
 
 <img width="3000" height="1800" alt="p5" src="https://github.com/user-attachments/assets/9fe47923-445a-4978-aa89-2bf4d62a8f8c" />
