@@ -109,6 +109,7 @@ This is a script that has common codes i.e. map data transformation, WHO disclai
 ### Oceans and lakes in white, with Equirectangular projection
 brics <- data.frame(iso3=c('BRA','CHN','IND','RUS','ZAF'),
                     var=1)
+                    
 whomapper(brics, colour='red', legend_pos='none', water_col = 'white', projection = "eqc")
 
 <img width="3000" height="1800" alt="p1" src="https://github.com/user-attachments/assets/5f54fbb2-999e-434c-873a-2874aebfdabc" />
@@ -154,6 +155,7 @@ bubblemapper(brics,legend_title = "Size of value",
 ### WHO regional map (an example of the Western Pacific Region), with Robinson projection
 wpr <- data.frame(iso3=c('AUS','CHN','PHL','IDN','VNM'),
                     var=as.factor(1:5))
+                    
 whomapper(wpr, brewer.pal(5, "PuRd"), legend_title = '', legend_pos = c(0.2, 0.4), zoom = "WPR")
 
 <img width="3000" height="1800" alt="p6" src="https://github.com/user-attachments/assets/04ca1eaf-9e9e-4e58-a956-4c741f1c83e1" />
