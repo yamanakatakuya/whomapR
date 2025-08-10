@@ -160,7 +160,12 @@ bubblemapper(brics,legend_title = "Size of value",
 
 <img width="3000" height="1800" alt="p5" src="https://github.com/user-attachments/assets/9fe47923-445a-4978-aa89-2bf4d62a8f8c" />
 
+### WHO regional map (an example of the Western Pacific Region), with Robinson projection
+wpr <- data.frame(iso3=c('AUS','CHN','PHL','IDN','VNM'),
+                    var=as.factor(1:5))
+whomapper(wpr, brewer.pal(5, "PuRd"), legend_title = 'BRICS', legend_pos = c(0.2, 0.4), zoom = "WPR")
 
+<img width="3000" height="1800" alt="p6" src="https://github.com/user-attachments/assets/754808e8-5cfc-4af7-ad8a-fcfaa2947347" />
 
 
 
