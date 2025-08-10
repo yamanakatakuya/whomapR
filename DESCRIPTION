@@ -1,5 +1,5 @@
 Package: whomapper
-Title: What the Package Does (One Line, Title Case)
+Title: Cloropleth and bubble maps of the world and WHO regions, using the latest WHO geoJSON files
 Version: 0.1.6
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
