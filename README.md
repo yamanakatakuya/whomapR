@@ -106,36 +106,27 @@ This is a script that has common codes i.e. map data transformation, WHO disclai
 
 ## Examples:
 
-### Univariate
-
+### Oceans and lakes in white, with Equirectangular projection
 brics <- data.frame(iso3=c('BRA','CHN','IND','RUS','ZAF'),
                     var=1)
-
-#### Oceans and lakes in white, with Equirectangular projection
-
 whomapper(brics, colour='red', legend_pos='none', water_col = 'white', projection = "eqc")
 
 <img width="3000" height="1800" alt="p1" src="https://github.com/user-attachments/assets/5f54fbb2-999e-434c-873a-2874aebfdabc" />
 
 
-#### Oceans and lakes in light blue, with Mollweide projection
+### Oceans and lakes in light blue, with Mollweide projection
 
 whomapper(brics, colour='red', legend_pos='none', water_col = 'white', projection = "moll")
 
 <img width="3000" height="1800" alt="p2" src="https://github.com/user-attachments/assets/19031a47-5a65-4c89-a61c-c2ea85a1c5ac" />
 
-
-### Categorical data
+### Oceans and lakes in white, with Eckert IV projection
 brics$var <- as.factor(1:5)
-
-#### Oceans and lakes in white, with Eckert IV projection
-
 whomapper(brics, legend_title='BRICS', water_col = 'white', projection = "eck4")
 
 <img width="3000" height="1800" alt="p3" src="https://github.com/user-attachments/assets/e29f9fe8-6e85-4304-8be1-3ac190a57cbc" />
 
-
-#### Recentered on the region Asia-Pacific, with the legend repositioned, with Robinson projection
+### Recentered on the region Asia-Pacific, with the legend repositioned, with Robinson projection
 
 whomapper(brics, legend_title = 'BRICS', legend_pos = c(0.7, 0.52), offset = 150, projection = "robin")
 
