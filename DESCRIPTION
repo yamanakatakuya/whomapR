@@ -1,12 +1,11 @@
 Package: whomapper
 Title: Cloropleth and bubble maps of the world and WHO regions, using the latest WHO geoJSON files
 Version: 0.1.6
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: person("Takuya", "Yamanaka", email = "yamanakat@who.int", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0807-2370"))
+Description: Loads WHO geoJSON files (2025) and provides a wrapper to ggplot2. Adapted from scripts of whomap package developed by Philippe Glaziou.
+License: `use_mit_l`use_gpl3_license()`
+URL: https://github.com/yamanakatakuya/whomapper
+BugReports: https://github.com/yamanakatakuya/whomap/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
