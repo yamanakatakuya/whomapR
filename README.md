@@ -122,7 +122,8 @@ whomapper(brics, colour='red', legend_pos='none', water_col = 'white', projectio
 
 whomapper(brics, colour='red', legend_pos='none', water_col = 'white', projection = "moll")
 
-<img width="3000" height="1800" alt="p2" src="https://github.com/user-attachments/assets/9c7d1fd3-93a7-42f5-8d4e-b001b83e9d96" />
+<img width="3000" height="1800" alt="p2" src="https://github.com/user-attachments/assets/19031a47-5a65-4c89-a61c-c2ea85a1c5ac" />
+
 
 ### Categorical data
 brics$var <- as.factor(1:5)
