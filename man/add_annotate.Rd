@@ -2,8 +2,8 @@
 % Please edit documentation in R/add_annotate.R
 \name{add_annotate}
 \alias{add_annotate}
-\title{\code{add_annotate()} is used in combination with \code{whomapper()} and adds optional
-text and shapes, with adjustment for CRS setting.}
+\title{\code{add_annotate()} is used in combination with \code{whomapper()} and \code{bubblemapper()},
+and adds optional text and shapes located at the centroid of listed countries and territories, with adjustment for CRS setting.}
 \usage{
 add_annotate(
   geom,
@@ -38,11 +38,11 @@ add_annotate(
 A ggplot2 function.
 }
 \description{
-\code{add_annotate()} is used in combination with \code{whomapper()} and adds optional
-text and shapes, with adjustment for CRS setting.
+\code{add_annotate()} is used in combination with \code{whomapper()} and \code{bubblemapper()},
+and adds optional text and shapes located at the centroid of listed countries and territories, with adjustment for CRS setting.
 }
 \examples{
-add_annotate("text", x = -50, y = 10, lab = "Example", size = 4, col = "blue")
+add_annotate("text", x = -50, y = 10, label = "Example", size = 4, color = "blue")
 }
 \author{
 Takuya Yamanaka.

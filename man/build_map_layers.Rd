@@ -2,7 +2,7 @@
 % Please edit documentation in R/map_builder.R
 \name{build_map_layers}
 \alias{build_map_layers}
-\title{Build base map layers and transformed geometries}
+\title{Build base map layers and transformed geometries: this is not a function of the package}
 \usage{
 build_map_layers(data, projection, offset)
 }
@@ -18,5 +18,8 @@ A list with transformed sf objects (world, disa/disb layers, crs string)
 Map projection setting and CRS adjustment
 }
 \description{
-Build base map layers and transformed geometries
+Build base map layers and transformed geometries: this is not a function of the package
+}
+\author{
+Takuya Yamanaka
 }

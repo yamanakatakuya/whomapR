@@ -1,7 +1,7 @@
 # R/add_annotate.R
 
-#' `add_annotate()` is used in combination with `whomapper()` and adds optional
-#' text and shapes, with adjustment for CRS setting.
+#' `add_annotate()` is used in combination with `whomapper()` and `bubblemapper()`, 
+#' and adds optional text and shapes located at the centroid of listed countries and territories, with adjustment for CRS setting.
 #'
 #' @param iso3 A vector of ISO3 country codes.
 #' @param shape Marker shape.
@@ -13,7 +13,7 @@
 #' @import ggplot2
 #' @export
 #' @examples
-#' add_annotate("text", x = -50, y = 10, lab = "Example", size = 4, col = "blue")
+#' add_annotate("text", x = -50, y = 10, label = "Example", size = 4, color = "blue")
 
 add_annotate <- function(
     geom,
@@ -28,7 +28,6 @@ add_annotate <- function(
     include_coord = FALSE,
     default_crs = 4326
 ) {
-  
   
   # Build args for annotate()
   args <- list(
@@ -62,10 +61,10 @@ add_annotate <- function(
   if (isTRUE(include_coord)) {
     list(
       annotate_layer,
-      ggplot2::coord_sf(default_crs = sf::st_crs(default_crs)),
+      ggplot2::coord_sf(default_crs = sf::st_crs(default_crs)), # default_crs needs to be called for the first annotate.
       theme_clean
     )
   } else {
-    list(annotate_layer, theme_clean)
+    list(annotate_layer, theme_clean) # when add_annotate is used multiple times for a map, must not call default_crs from the second annotate.
   }
 }

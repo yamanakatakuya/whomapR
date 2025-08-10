@@ -1,6 +1,6 @@
 # R/map_builder.R
 
-#' Build base map layers and transformed geometries
+#' Build base map layers and transformed geometries: this is not a function of the package
 #'
 #' @param data The merged map data with iso3, size, etc.
 #' @param projection Projection string (e.g., "moll", "bonne +lat_1=45")

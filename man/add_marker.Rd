@@ -2,8 +2,8 @@
 % Please edit documentation in R/add_marker.R
 \name{add_marker}
 \alias{add_marker}
-\title{\code{add_marker()} is used in combination with \code{whomapper()} and adds a secondary
-marker located at the centroid of listed countries and territories.}
+\title{\code{add_marker()} is used in combination with \code{whomapper()} and \code{bubblemapper()},
+adding a secondary marker located at the centroid of listed countries and territories.}
 \usage{
 add_marker(
   iso3 = NA_character_,
@@ -30,13 +30,13 @@ add_marker(
 A ggplot2 function.
 }
 \description{
-\code{add_marker()} is used in combination with \code{whomapper()} and adds a secondary
-marker located at the centroid of listed countries and territories.
+\code{add_marker()} is used in combination with \code{whomapper()} and \code{bubblemapper()},
+adding a secondary marker located at the centroid of listed countries and territories.
 }
 \examples{
 brics <- data.frame(iso3=c('BRA','CHN','IND','RUS','ZAF'), var=1:5)
 whomap(brics, legend.title='BRICS', legend.pos=c(0.14, 0.34)) +
-   add_marker(c('BRA','RUS'), lab='Subnational\ndata')
+   add_marker(c('BRA','RUS'))
 
 }
 \author{

@@ -25,7 +25,7 @@
 #' @import sf
 #' @import dplyr
 #' @examples
-#' bubblemapper(data.frame(iso3 = NA, var = NA))
+#' bubblemapper(data.frame(iso3 = NA, size = NA))
 #' @export
 bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
                        projection = "robin",
@@ -93,7 +93,7 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
     dplyr::mutate(row_number = dplyr::row_number()) |>
     dplyr::filter(
       (iso3 == "RUS" & row_number == 2) |
-        (iso3 != "RUS" & row_number == 1)
+        (iso3 != "RUS" & row_number == 1) # due to offsetting, two bubbles will be produced for RUS. These lines are to remove a bubble around the east end of RUS.
     ) |>
     dplyr::select(-row_number) |>
     dplyr::ungroup() |>

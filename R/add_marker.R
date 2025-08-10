@@ -1,7 +1,7 @@
 # R/add_marker.R
 
-#' `add_marker()` is used in combination with `whomapper()` and adds a secondary
-#' marker located at the centroid of listed countries and territories.
+#' `add_marker()` is used in combination with `whomapper()` and `bubblemapper()`, 
+#' adding a secondary marker located at the centroid of listed countries and territories.
 #'
 #' @param iso3 A vector of ISO3 country codes.
 #' @param shape Marker shape.
@@ -15,7 +15,7 @@
 #' @examples
 #' brics <- data.frame(iso3=c('BRA','CHN','IND','RUS','ZAF'), var=1:5)
 #' whomap(brics, legend.title='BRICS', legend.pos=c(0.14, 0.34)) +
-#'    add_marker(c('BRA','RUS'), lab='Subnational\ndata')
+#'    add_marker(c('BRA','RUS'))
 #'
 add_marker <- function(iso3 = NA_character_,
                        shape = 17,
@@ -55,8 +55,8 @@ add_marker <- function(iso3 = NA_character_,
     dplyr::group_by(iso3) |>
     dplyr::mutate(row_number = dplyr::row_number()) |>
     dplyr::filter(
-      (iso3 == "RUS" & row_number == 2) |
-        (iso3 != "RUS" & row_number == 1)
+      (iso3 == "RUS" & row_number == 2) | 
+        (iso3 != "RUS" & row_number == 1) # due to offsetting, two marker points will be produced for RUS. These lines are to remove a marker around the east end of RUS.
     ) |>
     dplyr::select(-row_number) |>
     dplyr::ungroup() |>
