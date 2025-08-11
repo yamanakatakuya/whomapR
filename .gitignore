@@ -4,6 +4,6 @@
 .Ruserdata
 /local
 /shape
-
+*.Rproj
 whomap_test2025.Rproj
 whomapper.Rproj
