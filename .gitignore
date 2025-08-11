@@ -7,3 +7,4 @@
 *.Rproj
 whomap_test2025.Rproj
 whomapper.Rproj
+*.Rbuildignore
