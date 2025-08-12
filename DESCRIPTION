@@ -1,6 +1,6 @@
 Package: whomapper
 Title: Choropleth and bubble maps of the world and WHO regions, using the latest WHO geoJSON files
-Version: 0.1.6
+Version: 0.1.7
 Authors@R: person("Takuya", "Yamanaka", email = "yamanakat@who.int", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0807-2370"))
 Description: Loads WHO geoJSON files (2025) and provides a wrapper to ggplot2. Adapted from scripts of whomap package developed by Philippe Glaziou.
 License: GPL (>= 3)

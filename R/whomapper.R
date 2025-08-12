@@ -32,7 +32,7 @@
 
 whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
-                    projection = "robin",
+                    projection = "eck4",
                     offset = NULL,
                     low_col = '#BDD7E7',
                     high_col = '#08519C',

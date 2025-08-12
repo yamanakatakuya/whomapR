@@ -70,7 +70,7 @@ region_zoom <- function(zoom) {
   
   # zoom and offset settings in lon/lat (EPSG:4326)
   zoom_specs <- list(
-    Global = list(x = c(-180, 180), y = c(-90, 90), offset = 10.8), 
+    Global = list(x = c(-180, 180), y = c(-81, 85), offset = 10.8), 
     WPR    = list(x = c(  60, 215), y = c(-50, 55), offset = 150),
     EMR    = list(x = c( -14, 77), y = c(-2, 47), offset = 10.8),
     EUR    = list(x = c( -60, 180), y = c( 28, 85), offset = 10.8),
@@ -147,7 +147,8 @@ common_disputed_border <- function(p,
     ggplot2::coord_sf(
       default_crs = sf::st_crs(4326),
       xlim        = zoom_info$x,
-      ylim        = zoom_info$y
+      ylim        = zoom_info$y,
+      datum = NA
     ) +
     # adjusting background/axis/legend settings
     ggplot2::theme(
@@ -167,6 +168,7 @@ common_disputed_border <- function(p,
       legend.background = ggplot2::element_rect(fill = NA, color = NA),
       legend.position = legend_pos
     ) +
+    ggplot2::theme(plot.margin = margin(0, 0, 0, 0)) +
     # map title
     ggplot2::labs(title = map_title)
   
