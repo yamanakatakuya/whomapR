@@ -8,3 +8,8 @@
 whomap_test2025.Rproj
 whomapper.Rproj
 *.Rbuildignore
+*_100%*
+*_5%*
+*_leg*
+/data/backup
+/data
