@@ -11,7 +11,7 @@ add_marker(
   col = "red",
   size = 3,
   alpha = 1,
-  projection = "robin",
+  projection = "eqearth",
   offset = 10.8
 )
 }

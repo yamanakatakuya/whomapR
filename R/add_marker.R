@@ -22,7 +22,7 @@ add_marker <- function(iso3 = NA_character_,
                        col = 'red',
                        size = 3,
                        alpha = 1,
-                       projection = "robin",
+                       projection = "eqearth",
                        offset = 10.8) {
   
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 

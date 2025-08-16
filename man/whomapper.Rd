@@ -12,7 +12,7 @@ Modified from WHO GIS (https://gis-who.hub.arcgis.com/)
 whomapper(
   X = data.frame(iso3 = NA, var = NA),
   colours = NULL,
-  projection = "eck4",
+  projection = "eqearth",
   offset = NULL,
   low_col = "#BDD7E7",
   high_col = "#08519C",

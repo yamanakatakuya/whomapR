@@ -16,12 +16,12 @@ build_map_layers <- function(data,
   # Define valid/available map projections
   valid_projs <- c(
     "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6",
-    "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90"
+    "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90", "eqearth"
   )
   # Validate and set projection. If invalid, robin
   if (!projection %in% valid_projs) {
-    warning(paste0("Invalid projection '", projection, "'. Defaulting to 'robin'."))
-    projection <- "robin"
+    warning(paste0("Invalid projection '", projection, "'. Defaulting to 'eqearth'."))
+    projection <- "eqearth"
   }
   
   # Construct CRS string

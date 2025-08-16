@@ -1,5 +1,5 @@
 # R package for whomap and bubble map
-version 0.1.8
+version 0.1.9
 
 Draws choropleth and bubble maps of the world, based on the 2025 (latest) WHO shapefiles (without simplifications to be compliant to WHO legal requirements).
 This package and functions of whomapper and bubblemapper are the updated version of whomap package developed by Philippe Glaziou.
@@ -16,7 +16,7 @@ remotes::install_github('yamanakatakuya/whomapper')
 
 whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     colours = NULL,
-                    projection = "robin",
+                    projection = "eqearth",
                     offset = NULL,
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
@@ -36,8 +36,8 @@ X is a dataframe. It must contain a variable named "iso3" holding country ISO3 c
 categorical variable named "var". There should be no more than 6 categories (excluding "No data" and 
 "Not applicable") for optimal display of the legend. The category labels should be short.
 
-15 different map projections are allowed, by changing "projection" (default setting is "eck4", Eckert IV Projection).
-Options for projection: "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6", "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90"
+15 different map projections are allowed, by changing "projection" (default setting is "eqearth", Equal Earth Projection).
+Options for projection: "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6", "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90", "eqearth"
 
 Zoom setting provides an option to produce WHO regional map.
 Options for zoom: "Global", "AFR", "AMR", "EMR", "EUR", "SEA", "WPR"
@@ -45,7 +45,7 @@ Options for zoom: "Global", "AFR", "AMR", "EMR", "EUR", "SEA", "WPR"
 ### bubblemapper
 
 bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
-                       projection = "moll",
+                       projection = "eqearth",
                        offset = 10.8,
                        bubble_col = 'dodgerblue',
                        bubble_alpha = 0.4,
@@ -74,7 +74,7 @@ add_marker <- function(iso3 = NA_character_,
                        size = 3,
                        alpha = 1,
                        lab = '',
-                       projection = "robin",
+                       projection = "eqearth",
                        offset = 10.8) 
 
 iso3 is a vector. It must contain a variable named "iso3" holding country ISO3 codes. This function is for adding the second layer of country markers on a map produced by whomapper() or bubblemapper().
