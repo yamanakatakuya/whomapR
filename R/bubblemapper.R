@@ -147,7 +147,10 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
     palestine_color,
     disclaim,
     zoom_info
-  )
+  ) +
+    theme(
+      legend.title = element_text(hjust = 0.5) # only for bubblemapper
+    )
   
   return(p)
   
