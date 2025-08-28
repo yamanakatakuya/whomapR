@@ -1,5 +1,5 @@
 # R package for whomap and bubble map
-version 0.1.9
+version 1.0.0
 
 Draws choropleth and bubble maps of the world, based on the 2025 (latest) WHO shapefiles (without simplifications to be compliant to WHO legal requirements).
 This package and functions of whomapper and bubblemapper are the updated version of whomap package developed by Philippe Glaziou.
@@ -29,7 +29,8 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     na_col = 'white',
                     disclaimer = FALSE,
                     legend_pos = c(0.17,0.42),
-                    zoom = 'Global'
+                    zoom = 'Global',
+                    hidef = FALSE
 )
     
 X is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
@@ -41,6 +42,8 @@ Options for projection: "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", 
 
 Zoom setting provides an option to produce WHO regional map.
 Options for zoom: "Global", "AFR", "AMR", "EMR", "EUR", "SEA", "WPR"
+
+hidef = TRUE provides 100% detailed world map. Drawing 100% detailed world map takes considerably longer time and the file size of the map will be large. Consider using this option only when it's necessary (i.e. for WHO publications)
 
 ### bubblemapper
 
@@ -60,7 +63,8 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
                        na_label = 'No data',
                        na_col = 'white',
                        disclaimer = FALSE,
-                       legend_pos = c(0.17,0.42)
+                       legend_pos = c(0.17,0.42),
+                       hideg = FALSE
 )
 
 X is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second

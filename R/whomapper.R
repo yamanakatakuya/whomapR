@@ -37,7 +37,7 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     low_col = '#BDD7E7',
                     high_col = '#08519C',
                     line_col = 'black',
-                    line_width = 0.3,
+                    line_width = 0.2,
                     map_title = "",
                     legend_title = "",
                     water_col = 'white',
@@ -45,7 +45,8 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
                     na_col = 'white',
                     disclaimer = FALSE,
                     legend_pos = c(0.17,0.42),
-                    zoom = 'Global'
+                    zoom = 'Global',
+                    hidef = FALSE
 )
 {
   
@@ -76,8 +77,17 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
   col2 <- c(col, na_col, 'grey60')
   
   # leftjoin a dataset with the base world map
-  data <- world |>
-  dplyr::left_join(X, by = c("iso3"))
+  if (hidef == TRUE) { ## Use 100% map details for PDF reports, guidance, guidelines
+    
+    data <- world_hi |>
+      dplyr::left_join(X, by = c("iso3"))
+    
+  } else { ## Use 1.25% map details for webpages
+    
+    data <- world |>
+      dplyr::left_join(X, by = c("iso3"))
+  }
+  
   
   # --- Sync SJM with NOR, and GUF with FRA ---
   # Get values from 'var' for NOR and FRA

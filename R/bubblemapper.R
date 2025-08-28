@@ -36,7 +36,7 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
                        scale_limits,
                        scale_labels,
                        line_col = 'black',
-                       line_width = 0.3,
+                       line_width = 0.2,
                        map_title = "",
                        legend_title = "",
                        water_col = 'white',
@@ -44,7 +44,8 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
                        na_col = 'white',
                        disclaimer = FALSE,
                        legend_pos = c(0.17,0.42),
-                       zoom = "Global"
+                       zoom = "Global",
+                       hidef = FALSE 
 )
 {
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -60,8 +61,16 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
     X$size <- as.numeric(X$size)
   
   # leftjoin a dataset with the base world map
+  if (hidef == TRUE) { ## Use 100% map details for PDF reports, guidance, guidelines
+    
+    data <- world_hi |>
+      dplyr::left_join(X, by = c("iso3"))
+    
+  } else { ## Use 1.25% map details for webpages
+    
   data <- world |>
     dplyr::left_join(X, by = c("iso3"))
+  }
   
   #- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Call map layers and WHO disclaimer from map_builder.R ----

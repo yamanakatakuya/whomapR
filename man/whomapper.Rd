@@ -17,7 +17,7 @@ whomapper(
   low_col = "#BDD7E7",
   high_col = "#08519C",
   line_col = "black",
-  line_width = 0.3,
+  line_width = 0.2,
   map_title = "",
   legend_title = "",
   water_col = "white",
@@ -25,7 +25,8 @@ whomapper(
   na_col = "white",
   disclaimer = FALSE,
   legend_pos = c(0.17, 0.42),
-  zoom = "Global"
+  zoom = "Global",
+  hidef = FALSE
 )
 }
 \arguments{
