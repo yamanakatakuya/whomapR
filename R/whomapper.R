@@ -84,7 +84,7 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
     
   } else { ## Use 100% map details for webpages
     
-    load(here::here("./local/sysdata.rda)"))
+    load(here::here("./local/sysdata.rda"))
     
     data <- world_hi |>
       dplyr::left_join(X, by = c("iso3"))

@@ -68,7 +68,7 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
     
   } else { ## Use 1.25% map details for webpages
   
-    load(here::here("./local/sysdata.rda)"))
+    load(here::here("./local/sysdata.rda"))
       
     data <- world_hi |>
     dplyr::left_join(X, by = c("iso3"))
