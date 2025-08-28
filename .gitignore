@@ -13,3 +13,6 @@ whomapper.Rproj
 *_leg*
 /data/backup
 /data
+.httr-oauth
+.DS_Store
+.quarto
