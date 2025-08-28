@@ -77,15 +77,18 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
   col2 <- c(col, na_col, 'grey60')
   
   # leftjoin a dataset with the base world map
-  if (hidef == TRUE) { ## Use 100% map details for PDF reports, guidance, guidelines
-    
-    data <- world_hi |>
-      dplyr::left_join(X, by = c("iso3"))
-    
-  } else { ## Use 1.25% map details for webpages
+  if (hidef == FALSE) { ## Use 0.85% map details for PDF reports, guidance, guidelines
     
     data <- world |>
       dplyr::left_join(X, by = c("iso3"))
+    
+  } else { ## Use 100% map details for webpages
+    
+    load(here::here("./local/sysdata.rda)"))
+    
+    data <- world_hi |>
+      dplyr::left_join(X, by = c("iso3"))
+
   }
   
   

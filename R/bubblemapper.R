@@ -61,14 +61,16 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
     X$size <- as.numeric(X$size)
   
   # leftjoin a dataset with the base world map
-  if (hidef == TRUE) { ## Use 100% map details for PDF reports, guidance, guidelines
+  if (hidef == FALSE) { ## Use 0.85% map details for PDF reports, guidance, guidelines
     
-    data <- world_hi |>
+    data <- world |>
       dplyr::left_join(X, by = c("iso3"))
     
   } else { ## Use 1.25% map details for webpages
-    
-  data <- world |>
+  
+    load(here::here("./local/sysdata.rda)"))
+      
+    data <- world_hi |>
     dplyr::left_join(X, by = c("iso3"))
   }
   
