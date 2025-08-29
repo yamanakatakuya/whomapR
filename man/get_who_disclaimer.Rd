@@ -2,10 +2,10 @@
 % Please edit documentation in R/map_builder.R
 \name{get_who_disclaimer}
 \alias{get_who_disclaimer}
-\title{WHO-style map disclaimer}
+\title{WHO map disclaimer}
 \usage{
 get_who_disclaimer()
 }
 \description{
-WHO-style map disclaimer
+WHO map disclaimer
 }

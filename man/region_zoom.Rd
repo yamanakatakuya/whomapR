@@ -2,10 +2,10 @@
 % Please edit documentation in R/map_builder.R
 \name{region_zoom}
 \alias{region_zoom}
-\title{Zoom setting}
+\title{Zoom setting for producing WHO regional maps}
 \usage{
 region_zoom(zoom)
 }
 \description{
-Zoom setting
+Zoom setting for producing WHO regional maps
 }

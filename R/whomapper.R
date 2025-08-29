@@ -82,9 +82,9 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
     data <- world |>
       dplyr::left_join(X, by = c("iso3"))
     
-  } else { ## Use 100% map details for PDF reports, guidance, guidelines
+  } else { ## Use 100% map details for PDF reports, WHO guidance/guidelines
     
-    load(here::here("./local/sysdata.rda")) # this requires local sysdata.rda (>100MB). Please contact tbdata@who.int
+    load(here::here("./local/sysdata.rda")) # this requires a large local sysdata.rda, which cannot be uploaded into Github (>100MB). Please contact tbdata@who.int
     
     data <- world_hi |>
       dplyr::left_join(X, by = c("iso3"))
@@ -118,7 +118,7 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
   # unpack a list
   list2env(layers, envir = environment())
   
-  # Call WHO disclaimer
+  # Call WHO map disclaimer
   if (disclaimer) {
     disclaim <- get_who_disclaimer()
   }
@@ -149,7 +149,7 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
 
   #- - - - -plot colour trick start- - - - -#
 
-    # Aksai Chin colour trick
+  # Aksai Chin colour trick
   # 1. Check China's value
   china_status <- data$var[data$iso3 == "CHN"]
   

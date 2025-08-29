@@ -66,9 +66,9 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
     data <- world |>
       dplyr::left_join(X, by = c("iso3"))
     
-  } else { ## Use 1.25% map details for PDF reports, guidance, guidelines. 
+  } else { ## Use 100% map details for PDF reports, WHO guidance/guidelines. 
   
-    load(here::here("./local/sysdata.rda")) # this requires local sysdata.rda (>100MB). Please contact tbdata@who.int
+    load(here::here("./local/sysdata.rda")) # this requires a large local sysdata.rda, which cannot be uploaded into Github (>100MB). Please contact tbdata@who.int
       
     data <- world_hi |>
     dplyr::left_join(X, by = c("iso3"))
@@ -89,7 +89,7 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
   # unpack a list
   list2env(layers, envir = environment())
   
-  # Call WHO disclaimer
+  # Call WHO disclaimer for maps
   if (disclaimer) {
     disclaim <- get_who_disclaimer()
   }

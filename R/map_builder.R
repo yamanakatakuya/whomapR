@@ -18,7 +18,7 @@ build_map_layers <- function(data,
     "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6",
     "hammer", "goode", "sinu", "aitoff", "bonne +lat_1=45", "bonne +lat_1=90", "eqearth"
   )
-  # Validate and set projection. If invalid, robin
+  # Validate and set projection. If invalid, call equal earth projection
   if (!projection %in% valid_projs) {
     warning(paste0("Invalid projection '", projection, "'. Defaulting to 'eqearth'."))
     projection <- "eqearth"
@@ -53,7 +53,7 @@ build_map_layers <- function(data,
   )
 }
 
-#' WHO-style map disclaimer
+#' WHO map disclaimer
 get_who_disclaimer <- function() {
   paste0(
     "\uA9 World Health Organization ",
@@ -65,7 +65,7 @@ get_who_disclaimer <- function() {
   )
 }
 
-#' Zoom setting
+#' Zoom setting for producing WHO regional maps
 region_zoom <- function(zoom) {
   
   # zoom and offset settings in lon/lat (EPSG:4326)
@@ -105,11 +105,11 @@ common_disputed_border <- function(p,
   
   # add AC fill colour, other disbuted area fill colour and coloured dashed line for Korean DMZ, Palestine, Egypt/Sudan
   p <- p +
-    # Stripe pattern for AC filled with China colour
+    # Stripe pattern for Aksai Chin filled with China colour
     ggpattern::geom_sf_pattern(data = layers$disa_ac_trans,
                                fill = china_color,
                                col = "grey80",           # outline color
-                               linewidth = line_width,          # outline thickness
+                               linewidth = line_width,   # outline thickness
                                pattern = "stripe",
                                pattern_fill = "grey80",  # stripe color
                                pattern_colour = "grey80",
@@ -120,7 +120,7 @@ common_disputed_border <- function(p,
     # fill grey for other disputed areas
     ggplot2::geom_sf(data=layers$disa_nlake_nac_trans,  col="grey80", fill="grey80",
                      linewidth = line_width) +
-    # fill white for lakes
+    # fill water_col for lakes
     ggplot2::geom_sf(data=layers$disa_lake_trans,  col=line_col, fill=water_col,
                      linewidth = line_width) +
     # coloured dashed lines where there are already black solid lines from base world map: Korean DMZ, Palestine, Egypt/Sudan
@@ -133,11 +133,11 @@ common_disputed_border <- function(p,
     ggplot2::geom_sf(data=layers$disb_dashed_pse_trans,  col=palestine_color, fill="grey50",
                      linewidth = line_width,
                      linetype = "dashed") +
-  # black dashed lines for Kenya/Sudan Kosovo etc
+    # black dashed lines for Kenya/Sudan Kosovo etc
     ggplot2::geom_sf(data = layers$disb_dashed_black, col = line_col, fill = "grey50", linewidth = line_width, linetype = "dashed") +
     # grey dashed lines for J&K
     ggplot2::geom_sf(data = layers$disb_dashed_grey, col = "grey50", fill = "grey50", linewidth = line_width, linetype = "dashed") +
-    # black solid line for Arunachal Pradesh, Western Sahara, AC, Egypt Claim
+    # black solid line for Arunachal Pradesh, Western Sahara, Aksai Chin, Egypt Claim
     ggplot2::geom_sf(data = layers$disb_solid, col = line_col, fill = "grey50", linewidth = line_width, linetype = "solid") +
     # grey dotted lines for J&K control line 
     ggplot2::geom_sf(data = layers$disb_dotted_grey, col = "grey50", fill = "grey50", linewidth = line_width, linetype = "dotted") +
@@ -172,7 +172,7 @@ common_disputed_border <- function(p,
     # map title
     ggplot2::labs(title = map_title)
   
-  # WHO disclaimer option
+  # WHO map disclaimer option
   if (isTRUE(disclaimer)) {
     p <- p +
       ggplot2::labs(caption = disclaim) +
