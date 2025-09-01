@@ -74,7 +74,7 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
     col <- colours
   }
   
-  col2 <- c(col, na_col, 'grey60')
+  col2 <- c(col, na_col, 'grey50')
   
   # leftjoin a dataset with the base world map
   if (hidef == FALSE) { ## Use 0.85% map details for webpages
