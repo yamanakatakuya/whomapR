@@ -111,7 +111,7 @@ This is a script that has common codes i.e. map data transformation, WHO disclai
 
 ## Export: 
 
-DO NOT USE R package of "cairo" when you export whomapper outputs, as it may not display boundaries for disputed areas/territories correctly.
+DO NOT USE R package of "cairo" when you export outputs of this package, as it may not display boundaries for disputed areas/territories correctly.
 
 
 ## Examples:
