@@ -62,7 +62,7 @@ with standard WHO ISO3 country codes.The categorical variable to be
 mapped should be named "var" (see examples).
 }
 \examples{
-whomapper(data.frame(iso3 = NA, var = NA))
+whomapper(data.frame(iso3 = c('BRA','CHN','IND','RUS','ZAF'), var = 1), colours = "red")
 }
 \author{
 Takuya Yamanaka, adapted from scripts of whomap developed by Philippe Glaziou.

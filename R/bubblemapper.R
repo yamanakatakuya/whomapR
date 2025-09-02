@@ -25,7 +25,7 @@
 #' @import sf
 #' @import dplyr
 #' @examples
-#' bubblemapper(data.frame(iso3 = NA, size = NA))
+#' bubblemapper(data.frame(iso3 = c('BRA','CHN','IND','RUS','ZAF'), var = 1, size = c(1e4, 1e5, 3e5, 5e5, 1e6)), scale_breaks = c(1e4, 2.5e5, 5e5, 1e6),scale_limits = c(1e4, 1e6), scale_labels = c("10 000","250 000","500 000","1 000 000"))
 #' @export
 bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
                        projection = "eqearth",
@@ -68,7 +68,7 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
     
   } else { ## Use 100% map details for PDF reports, WHO guidance/guidelines. 
   
-    load(here::here("./local/sysdata.rda")) # this requires a large local sysdata.rda, which cannot be uploaded into Github (>100MB). Please contact tbdata@who.int
+    load(here::here("./shapefiles/sysdata.rda")) # this requires a large local sysdata.rda, which cannot be uploaded into Github (>100MB). Please contact tbdata@who.int
       
     data <- world_hi |>
     dplyr::left_join(X, by = c("iso3"))

@@ -65,7 +65,7 @@ Bubble world maps 2025 version
 It requires ggplot2, ggpattern, sf and here
 }
 \examples{
-bubblemapper(data.frame(iso3 = NA, size = NA))
+bubblemapper(data.frame(iso3 = c('BRA','CHN','IND','RUS','ZAF'), var = 1, size = c(1e4, 1e5, 3e5, 5e5, 1e6)), scale_breaks = c(1e4, 2.5e5, 5e5, 1e6),scale_limits = c(1e4, 1e6), scale_labels = c("10 000","250 000","500 000","1 000 000"))
 }
 \author{
 Takuya Yamanaka, adapted from scripts of whomap developed by Philippe Glaziou.

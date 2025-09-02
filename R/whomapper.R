@@ -27,7 +27,7 @@
 #' @import sf
 #' @import dplyr
 #' @examples
-#' whomapper(data.frame(iso3 = NA, var = NA))
+#' whomapper(data.frame(iso3 = c('BRA','CHN','IND','RUS','ZAF'), var = 1), colours = "red")
 #' @export 
 
 whomapper <- function (X = data.frame(iso3 = NA, var = NA),
@@ -84,7 +84,7 @@ whomapper <- function (X = data.frame(iso3 = NA, var = NA),
     
   } else { ## Use 100% map details for PDF reports, WHO guidance/guidelines
     
-    load(here::here("./local/sysdata.rda")) # this requires a large local sysdata.rda, which cannot be uploaded into Github (>100MB). Please contact tbdata@who.int
+    load(here::here("./shapefiles/sysdata.rda")) # this requires a large local sysdata.rda, which cannot be uploaded into Github (>100MB). Please contact tbdata@who.int
     
     data <- world_hi |>
       dplyr::left_join(X, by = c("iso3"))
