@@ -109,6 +109,11 @@ When add_annotate is used multiple times, only the first annotate requires "incl
 This is a script that has common codes i.e. map data transformation, WHO disclaimer, and common map layers and theme settings, used both by whomapper.R and bubblemapper.R
 
 
+## Export: 
+
+DO NOT USE R package of "cairo" when you export whomapper outputs, as it may not display boundaries for disputed areas/territories correctly.
+
+
 ## Examples:
 
 ### Oceans and lakes in white, with Equirectangular projection
@@ -167,5 +172,9 @@ whomapper(wpr_sample5, brewer.pal(5, "PuRd"), legend_title = '', legend_pos = c(
 
 <img width="3000" height="1800" alt="p6" src="https://github.com/user-attachments/assets/04ca1eaf-9e9e-4e58-a956-4c741f1c83e1" />
 
+## Disclaimers:
+
+The designations employed and the presentation of the material in this publication do not imply the expression of any opinion whatsoever on the part of WHO concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. 
+Dotted and dashed lines on maps represent approximate border lines for which there may not yet be full agreement.
 
 
