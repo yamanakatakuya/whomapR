@@ -7,7 +7,7 @@ This package and functions of whomapper and bubblemapper are the updated version
 
 ## Install:
 
-remotes::install_github('yamanakatakuya/whomapper')
+remotes::install_github('yamanakatakuya/whomapR')
 
 
 ## Usage: 
