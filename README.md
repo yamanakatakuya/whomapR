@@ -65,7 +65,7 @@ bubblemapper <- function (X = data.frame(iso3 = NA, size = NA),
                        na_col = 'white',
                        disclaimer = FALSE,
                        legend_pos = c(0.17,0.42),
-                       hideg = FALSE
+                       hidef = FALSE
 )
 
 X is a dataframe. It must contain a variable named "iso3" holding country ISO3 codes, and a second
