@@ -43,8 +43,8 @@ Options for projection: "eqc", "moll", "robin", "eck1", "eck2", "eck3", "eck4", 
 Zoom setting provides an option to produce WHO regional map.
 Options for zoom: "Global", "AFR", "AMR", "EMR", "EUR", "SEA", "WPR"
 
-hidef = TRUE provides 100% detailed world map. Drawing 100% detailed world map takes considerably longer time and the file size of the map will be large. Consider using this option only when it's necessary (i.e. for WHO publications).
-To produce hidef map, a sysdata.rda (>100MB) is required in your local environment.
+hidef = TRUE provides 100% detailed world map. Drawing 100% detailed world map takes considerably longer time and the file size of the map will be large. Consider using this option only when it's necessary (i.e. for WHO publications). This option is required for maps that will be used in WHO publications/reports.
+To produce hidef map, a sysdata.rda (>100MB) is required in your local environment. Please contact yamanakat@who.int.
 
 ### bubblemapper
 
