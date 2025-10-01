@@ -1,4 +1,4 @@
-Package: whomapper
+Package: whomapR
 Title: Choropleth and bubble maps of the world and WHO regions, using the latest WHO geoJSON files
 Version: 1.0.2
 Authors@R: person("Takuya", "Yamanaka", email = "yamanakat@who.int", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0807-2370"))
